@@ -31,21 +31,9 @@ public class ReservationService {
     public String addReservation(AddReservationDTO addReservationDTO){
         List<ClientFoodPreference> clientFoodPreferences = new LinkedList<>();
         List<Payment> payments = new LinkedList<>();
-        Client client = clientService.whoami();
-        List<Reservation> reservations = new LinkedList<>();
-        Residence residence = new Residence();
-        Reservation reservation = Reservation.builder()
-                .client(client)
-                .clientFoodPreferences(clientFoodPreferences)
-                .payments(payments)
-                .comments(addReservationDTO.getComment())
-                .residence(residence)
-                .build();
-        reservationRepository.save(reservation);
-        reservations.add(reservation);
-
         List<CheckedIn> checkedIns = new LinkedList<>();
-        residence = Residence.builder()
+        
+        Residence residence = Residence.builder()
                 .checkedIns(checkedIns)
                 .startDate(addReservationDTO.getStartDate())
                 .endDate(addReservationDTO.getEndDate())
@@ -54,10 +42,18 @@ public class ReservationService {
                                 .orElseThrow(() -> new ObjectExistsException(
                                         "Room with id " + addReservationDTO.getRoomId() + " does not exist"))
                 )
-                .reservations(reservations)
                 .build();
         residenceRepository.save(residence);
 
+        Client client = clientService.whoami();
+        Reservation reservation = Reservation.builder()
+                .residence(residence)
+                .client(client)
+                .clientFoodPreferences(clientFoodPreferences)
+                .payments(payments)
+                .comments(addReservationDTO.getComment())
+                .build();
+        reservationRepository.save(reservation);
         return "Reservation added";
     }
 }
