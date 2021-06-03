@@ -31,7 +31,7 @@ public class ReservationService {
     private final ClientService clientService;
 
     @Transactional
-    public String addReservation(AddReservationDTO addReservationDTO){
+    public Long addReservation(AddReservationDTO addReservationDTO){
         List<ClientFoodPreference> clientFoodPreferences = new LinkedList<>();
         List<Payment> payments = new LinkedList<>();
         List<CheckedIn> checkedIns = new LinkedList<>();
@@ -57,7 +57,8 @@ public class ReservationService {
                 .comments(addReservationDTO.getComment())
                 .build();
         reservationRepository.save(reservation);
-        return "Reservation added";
+        return reservation.getId();
+        //return "Reservation added";
     }
 
     public List<Residence> getMyResidences(){

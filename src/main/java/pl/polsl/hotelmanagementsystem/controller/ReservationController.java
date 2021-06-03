@@ -14,7 +14,7 @@ import java.util.List;
 public class ReservationController {
     private final ReservationService reservationService;
     @PostMapping(path = "/addReservation")
-    public String addReservation(@RequestBody AddReservationDTO addReservationDTO){
+    public Long addReservationAndReturnItsId(@RequestBody AddReservationDTO addReservationDTO){
         return reservationService.addReservation(addReservationDTO);
     }
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import pl.polsl.hotelmanagementsystem.controller.dto.LoginDTO;
 import pl.polsl.hotelmanagementsystem.service.client.ClientRepository;
 import pl.polsl.hotelmanagementsystem.service.staff.StaffRepository;
+import pl.polsl.hotelmanagementsystem.utils.exception.ObjectExistsException;
 import pl.polsl.hotelmanagementsystem.utils.security.jwt.JwtTokenProvider;
 
 @Service
@@ -26,9 +27,10 @@ public class UserService {
         if(authentication.getAuthorities().contains(Role.ROLE_CLIENT)){
             bearer = jwtTokenProvider.createToken(loginDTO.getEmail(), clientRepository.findByEmail(loginDTO.getEmail()).get().getRoles());
         }
-        else{
+        else if (authentication.getAuthorities().contains(Role.ROLE_STAFF)){
             bearer = jwtTokenProvider.createToken(loginDTO.getEmail(), staffRepository.findByEmail(loginDTO.getEmail()).get().getRoles());
         }
+        else throw new ObjectExistsException("User with given password does not exist");
         return "Bearer " + bearer;
     }
 

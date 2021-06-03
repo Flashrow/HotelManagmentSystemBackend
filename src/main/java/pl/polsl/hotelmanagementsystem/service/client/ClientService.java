@@ -56,7 +56,7 @@ public class ClientService {
                 .build();
 
         clientRepository.save(client);
-        return "Zarejestrowany";
+        return "Bearer " + jwtTokenProvider.createToken(client.getEmail(), client.getRoles());
     }
     public ClientDetailsDTO getClientDetails(HttpServletRequest httpServletRequest){
          Client client = clientRepository.findByEmail(

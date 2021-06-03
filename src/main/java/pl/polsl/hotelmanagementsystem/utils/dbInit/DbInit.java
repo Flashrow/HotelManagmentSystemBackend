@@ -40,7 +40,7 @@ public class DbInit {
 
     private void addRooms(Integer count){
         List<Room> rooms = new LinkedList<>();
-        for(Integer i = 0; i < count; i++){
+        for(int i = 0; i < count; i++){
             Room room = Room.builder()
                     .id((long) i)
                     .number(i)
@@ -53,6 +53,7 @@ public class DbInit {
         }
         roomRepository.saveAll(rooms);
     }
+    //TODO: never, ever try leaving this function up for production
     @PostConstruct
     private void postConstruct(){
         Client client = Client.builder()
