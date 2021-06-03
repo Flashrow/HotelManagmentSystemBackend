@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.polsl.hotelmanagementsystem.controller.dto.AddReservationDTO;
+import pl.polsl.hotelmanagementsystem.controller.dto.BlackoutTimeDTO;
 import pl.polsl.hotelmanagementsystem.service.checkedIn.CheckedIn;
 import pl.polsl.hotelmanagementsystem.service.client.Client;
 import pl.polsl.hotelmanagementsystem.service.client.ClientService;
@@ -12,6 +13,7 @@ import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPre
 import pl.polsl.hotelmanagementsystem.service.payment.Payment;
 import pl.polsl.hotelmanagementsystem.service.residence.Residence;
 import pl.polsl.hotelmanagementsystem.service.residence.ResidenceRepository;
+import pl.polsl.hotelmanagementsystem.service.room.Room;
 import pl.polsl.hotelmanagementsystem.service.room.RoomRepository;
 import pl.polsl.hotelmanagementsystem.utils.exception.ObjectExistsException;
 
@@ -62,5 +64,18 @@ public class ReservationService {
         Client client = clientService.whoami();
         List<Reservation> reservations = reservationRepository.getAllByClient(client);
         return reservations.stream().map(Reservation::getResidence).collect(Collectors.toList());
+    }
+
+    public List<BlackoutTimeDTO> getBlackoutDays(Long roomId){
+        Room room = roomRepository.findById(roomId).orElseThrow(() -> new ObjectExistsException(
+                "Room with id: " + roomId + " does not exist"
+        ));
+
+        List<Residence> residences = residenceRepository.findAllByRoom(room);
+        List<BlackoutTimeDTO> blackoutTimeDTOS = residences.stream().map(
+                residence -> (new BlackoutTimeDTO(residence.getStartDate(), residence.getEndDate()))
+        ).collect(Collectors.toList());
+
+        return blackoutTimeDTOS;
     }
 }
