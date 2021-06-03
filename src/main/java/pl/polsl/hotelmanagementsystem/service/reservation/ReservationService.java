@@ -56,4 +56,10 @@ public class ReservationService {
         reservationRepository.save(reservation);
         return "Reservation added";
     }
+
+    public String[] getClientReservations(){
+        Client client = clientService.whoami();
+        List<Reservation> reservations = reservationRepository.getAllByClient(client);
+        return reservations.stream().map(Reservation::toString).toArray(String[]::new);
+    }
 }

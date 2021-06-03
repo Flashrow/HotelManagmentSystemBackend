@@ -14,7 +14,6 @@ public class RoomService {
     private final RoomRepository roomRepository;
 
     @Transactional
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public void addRoom(NewRoomDTO newRoomDTO){
         if(roomRepository.findById(newRoomDTO.getId()).isEmpty()){
             Room room = Room.builder()
@@ -31,7 +30,7 @@ public class RoomService {
             throw new ObjectExistsException("Room with id: '" + newRoomDTO.getId() + "' already exists");
         }
     }
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+
     public List<Room> getAllRooms(){
         return roomRepository.findAll();
     }

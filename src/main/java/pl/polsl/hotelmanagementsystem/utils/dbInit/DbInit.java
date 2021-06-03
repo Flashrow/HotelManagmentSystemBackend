@@ -5,6 +5,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.polsl.hotelmanagementsystem.service.client.Client;
 import pl.polsl.hotelmanagementsystem.service.client.ClientRepository;
+import pl.polsl.hotelmanagementsystem.service.room.Room;
+import pl.polsl.hotelmanagementsystem.service.room.RoomRepository;
 import pl.polsl.hotelmanagementsystem.service.staff.Staff;
 import pl.polsl.hotelmanagementsystem.service.staff.StaffRepository;
 import pl.polsl.hotelmanagementsystem.service.user.Role;
@@ -18,6 +20,7 @@ import java.util.List;
 public class DbInit {
     private final ClientRepository clientRepository;
     private final StaffRepository staffRepository;
+    private final RoomRepository roomRepository;
     private final PasswordEncoder passwordEncoder;
     private List<Role> staffRoleListCreator(Role role){
         List<Role> roles = new LinkedList<>();
@@ -35,6 +38,21 @@ public class DbInit {
                 .build();
     }
 
+    private void addRooms(Integer count){
+        List<Room> rooms = new LinkedList<>();
+        for(Integer i = 0; i < count; i++){
+            Room room = Room.builder()
+                    .id((long) i)
+                    .number(i)
+                    .size(i * 3)
+                    .floor(i / 3)
+                    .description(String.valueOf(i))
+                    .price((double) i * 100)
+                    .build();
+            rooms.add(room);
+        }
+        roomRepository.saveAll(rooms);
+    }
     @PostConstruct
     private void postConstruct(){
         Client client = Client.builder()
@@ -51,13 +69,16 @@ public class DbInit {
                 .build();
         clientRepository.save(client);
 
-        staffRepository.save(staffCreator(Role.ROLE_ADMIN));
-        staffRepository.save(staffCreator(Role.ROLE_KITCHEN));
-        staffRepository.save(staffCreator(Role.ROLE_MANAGER));
-        staffRepository.save(staffCreator(Role.ROLE_RECEPTION));
-        staffRepository.save(staffCreator(Role.ROLE_ROOM_SERVICE));
-        staffRepository.save(staffCreator(Role.ROLE_STAFF));
-        List<Staff> staff = staffRepository.findAll();
+        List<Staff> staffs = new LinkedList<>();
+        staffs.add(staffCreator(Role.ROLE_ADMIN));
+        staffs.add(staffCreator(Role.ROLE_KITCHEN));
+        staffs.add(staffCreator(Role.ROLE_MANAGER));
+        staffs.add(staffCreator(Role.ROLE_RECEPTION));
+        staffs.add(staffCreator(Role.ROLE_ROOM_SERVICE));
+        staffs.add(staffCreator(Role.ROLE_STAFF));
+        staffRepository.saveAll(staffs);
+
+        addRooms(5);
         System.out.println("Database initailized with test users");
     }
 }
