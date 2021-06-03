@@ -32,7 +32,7 @@ public class ReservationService {
         List<ClientFoodPreference> clientFoodPreferences = new LinkedList<>();
         List<Payment> payments = new LinkedList<>();
         List<CheckedIn> checkedIns = new LinkedList<>();
-        
+
         Residence residence = Residence.builder()
                 .checkedIns(checkedIns)
                 .startDate(addReservationDTO.getStartDate())
