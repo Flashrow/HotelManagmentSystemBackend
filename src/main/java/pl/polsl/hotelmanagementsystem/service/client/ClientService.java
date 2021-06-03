@@ -61,7 +61,8 @@ public class ClientService {
     public ClientDetailsDTO getClientDetails(HttpServletRequest httpServletRequest){
          Client client = clientRepository.findByEmail(
                 jwtTokenProvider.getUsername(
-                        jwtTokenProvider.resolveToken(httpServletRequest))).orElseThrow(IllegalAccessError::new);
+                        jwtTokenProvider.resolveToken(httpServletRequest)))
+                 .orElseThrow(() -> new ObjectExistsException("There are no clients associated with this session"));
          return ClientDetailsDTO.builder()
                  .name(client.getFirstName())
                  .surname(client.getLastName())

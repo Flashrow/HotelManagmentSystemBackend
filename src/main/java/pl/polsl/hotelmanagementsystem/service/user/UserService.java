@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 import pl.polsl.hotelmanagementsystem.controller.dto.LoginDTO;
 import pl.polsl.hotelmanagementsystem.service.client.ClientRepository;
@@ -20,18 +21,20 @@ public class UserService {
     private final JwtTokenProvider jwtTokenProvider;
 
     public String login(LoginDTO loginDTO){
-        Authentication authentication =  authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword()));
-        String bearer;
-        //TODO possible bugs if user doesnt exist!
-        if(authentication.getAuthorities().contains(Role.ROLE_CLIENT)){
-            bearer = jwtTokenProvider.createToken(loginDTO.getEmail(), clientRepository.findByEmail(loginDTO.getEmail()).get().getRoles());
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword()));
+            String bearer;
+            if (authentication.getAuthorities().contains(Role.ROLE_CLIENT)) {
+                bearer = jwtTokenProvider.createToken(loginDTO.getEmail(), clientRepository.findByEmail(loginDTO.getEmail()).get().getRoles());
+            } else if (authentication.getAuthorities().contains(Role.ROLE_STAFF)) {
+                bearer = jwtTokenProvider.createToken(loginDTO.getEmail(), staffRepository.findByEmail(loginDTO.getEmail()).get().getRoles());
+            } else throw new ObjectExistsException("User with given password does not exist");
+            return "Bearer " + bearer;
         }
-        else if (authentication.getAuthorities().contains(Role.ROLE_STAFF)){
-            bearer = jwtTokenProvider.createToken(loginDTO.getEmail(), staffRepository.findByEmail(loginDTO.getEmail()).get().getRoles());
+        catch (AuthenticationException authenticationException){
+            throw new ObjectExistsException("Invalid username/password");
         }
-        else throw new ObjectExistsException("User with given password does not exist");
-        return "Bearer " + bearer;
     }
 
 
