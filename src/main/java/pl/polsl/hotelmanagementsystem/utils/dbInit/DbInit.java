@@ -19,9 +19,10 @@ public class DbInit {
     private final ClientRepository clientRepository;
     private final StaffRepository staffRepository;
     private final PasswordEncoder passwordEncoder;
-    private List<Role> roleListCreator(Role role){
+    private List<Role> staffRoleListCreator(Role role){
         List<Role> roles = new LinkedList<>();
         roles.add(role);
+        roles.add(Role.ROLE_STAFF);
         return roles;
     }
     private Staff staffCreator(Role role){
@@ -30,7 +31,7 @@ public class DbInit {
                 .firstName("Admin")
                 .lastName("Staff surname")
                 .password(passwordEncoder.encode("string"))
-                .roles(roleListCreator(role))
+                .roles(staffRoleListCreator(role))
                 .build();
     }
 
@@ -46,7 +47,7 @@ public class DbInit {
                 .address("Warszawa 12")
                 .phoneNumber("512-353-662")
                 .password(passwordEncoder.encode("string"))
-                .roles(roleListCreator(Role.ROLE_CLIENT))
+                .roles(staffRoleListCreator(Role.ROLE_CLIENT))
                 .build();
         clientRepository.save(client);
 
