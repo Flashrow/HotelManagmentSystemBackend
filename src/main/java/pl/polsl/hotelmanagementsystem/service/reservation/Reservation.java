@@ -2,6 +2,7 @@ package pl.polsl.hotelmanagementsystem.service.reservation;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import pl.polsl.hotelmanagementsystem.service.client.Client;
 import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPreference;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Entity
 @Builder
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Reservation {

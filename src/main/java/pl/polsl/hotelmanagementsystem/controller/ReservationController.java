@@ -3,8 +3,8 @@ package pl.polsl.hotelmanagementsystem.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.hotelmanagementsystem.controller.dto.AddReservationDTO;
-import pl.polsl.hotelmanagementsystem.service.reservation.Reservation;
 import pl.polsl.hotelmanagementsystem.service.reservation.ReservationService;
+import pl.polsl.hotelmanagementsystem.service.residence.Residence;
 
 import java.util.List;
 
@@ -18,9 +18,9 @@ public class ReservationController {
         return reservationService.addReservation(addReservationDTO);
     }
 
-    @GetMapping(path = "/getMyReservations")
-    public String[] getMyReservations(){
-        return reservationService.getClientReservations();
+    @GetMapping(path = "/getMyResidences")
+    public List<Residence> getMyResidences(){
+        return reservationService.getMyResidences();
     }
 
     @PostMapping(path = "addFoodPreference")

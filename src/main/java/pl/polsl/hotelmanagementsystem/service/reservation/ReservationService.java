@@ -17,6 +17,7 @@ import pl.polsl.hotelmanagementsystem.utils.exception.ObjectExistsException;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -57,9 +58,9 @@ public class ReservationService {
         return "Reservation added";
     }
 
-    public String[] getClientReservations(){
+    public List<Residence> getMyResidences(){
         Client client = clientService.whoami();
         List<Reservation> reservations = reservationRepository.getAllByClient(client);
-        return reservations.stream().map(Reservation::toString).toArray(String[]::new);
+        return reservations.stream().map(Reservation::getResidence).collect(Collectors.toList());
     }
 }
