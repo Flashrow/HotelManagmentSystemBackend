@@ -81,6 +81,6 @@ public class DbInit {
         staffRepository.saveAll(staffs);
 
         addRooms(5);
-        System.out.println("Database initailized with test users");
+        System.out.println("Database initialized with test users");
     }
 }
