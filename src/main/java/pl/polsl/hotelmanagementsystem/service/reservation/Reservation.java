@@ -31,7 +31,11 @@ public class Reservation {
             mappedBy = "reservation"
     )
     private List<ClientFoodPreference> clientFoodPreferences;
-    @OneToMany
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "reservation"
+    )
     private List<Payment> payments;
     private String comments;
 }

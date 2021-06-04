@@ -18,7 +18,7 @@ public class ClientFoodPreference {
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "reservation_id")
+    @JoinColumn
     @JsonIgnore
     private Reservation reservation;
     private String preference;
