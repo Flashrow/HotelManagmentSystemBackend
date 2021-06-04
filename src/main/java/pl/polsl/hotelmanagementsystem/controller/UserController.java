@@ -9,6 +9,8 @@ import pl.polsl.hotelmanagementsystem.controller.dto.LoginDTO;
 import pl.polsl.hotelmanagementsystem.service.client.ClientService;
 import pl.polsl.hotelmanagementsystem.service.user.UserService;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping(path = "/users")
@@ -21,4 +23,8 @@ public class UserController {
         return userService.login(loginDTO);     // everyone can login
     }
 
+    @PostMapping(path = "/whatRolesAmI")
+    public List<String> whatRolesAmI(){
+        return userService.whatRolesAmI();
+    }
 }

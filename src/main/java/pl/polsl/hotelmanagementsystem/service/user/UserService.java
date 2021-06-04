@@ -5,12 +5,17 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import pl.polsl.hotelmanagementsystem.controller.dto.LoginDTO;
 import pl.polsl.hotelmanagementsystem.service.client.ClientRepository;
 import pl.polsl.hotelmanagementsystem.service.staff.StaffRepository;
 import pl.polsl.hotelmanagementsystem.utils.exception.ObjectExistsException;
 import pl.polsl.hotelmanagementsystem.utils.security.jwt.JwtTokenProvider;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -36,5 +41,9 @@ public class UserService {
             throw new ObjectExistsException("Invalid username/password");
         }
     }
-
+    public List<String> whatRolesAmI(){
+        List<String> roles = SecurityContextHolder.getContext().getAuthentication().getAuthorities()
+                .stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+        return roles;
+    }
 }
