@@ -1,10 +1,12 @@
 package pl.polsl.hotelmanagementsystem.service.client;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 import pl.polsl.hotelmanagementsystem.controller.dto.ClientDetailsDTO;
 import pl.polsl.hotelmanagementsystem.controller.dto.SignUpDTO;
 import pl.polsl.hotelmanagementsystem.service.user.Role;
@@ -28,13 +30,13 @@ public class ClientService {
         || signUpDTO.getRepeatedEmail() == null || signUpDTO.getPassword() == null || signUpDTO.getPostCode() == null
         || signUpDTO.getRepeatedPassword() == null || signUpDTO.getNumber() == null || signUpDTO.getCountry() == null
         || signUpDTO.getCity() == null || signUpDTO.getAddress() == null){
-            throw new IllegalArgumentException("Fill all spaces");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Fill all empty spaces");
         }
         if(!signUpDTO.getEmail().equals(signUpDTO.getRepeatedEmail()) ){
-            throw new IllegalArgumentException("Repeated email is not the same");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Repeated email is not the same");
         }
         if(!signUpDTO.getPassword().equals(signUpDTO.getRepeatedPassword()) ){
-            throw new IllegalArgumentException("Repeated password blah blah");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Repeated password blah blah");
         }
 
         if(clientRepository.findByEmail(signUpDTO.getEmail()).isPresent()){
