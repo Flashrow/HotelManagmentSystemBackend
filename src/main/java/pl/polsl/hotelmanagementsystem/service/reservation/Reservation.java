@@ -25,7 +25,11 @@ public class Reservation {
     private Client client;
     @ManyToOne
     private Residence residence;
-    @OneToMany
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "reservation"
+    )
     private List<ClientFoodPreference> clientFoodPreferences;
     @OneToMany
     private List<Payment> payments;
