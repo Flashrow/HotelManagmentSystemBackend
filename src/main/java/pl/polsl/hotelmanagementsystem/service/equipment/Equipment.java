@@ -16,6 +16,8 @@ public class Equipment {
     private Long id;
     private String name;
 
-    @OneToMany
+    @OneToMany(
+            mappedBy = "equipment"
+    )
     private List<EquipmentQuantity> equipmentQuantities;
 }

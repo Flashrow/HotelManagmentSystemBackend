@@ -17,7 +17,9 @@ public class EquipmentQuantity {
     private Integer quantity;
 
     @ManyToOne
+    @JoinColumn
     private Room room;
     @ManyToOne
+    @JoinColumn
     private Equipment equipment;
 }

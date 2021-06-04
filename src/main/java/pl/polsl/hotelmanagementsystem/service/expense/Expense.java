@@ -19,5 +19,6 @@ public class Expense {
     private String ExpensesType;    //TODO: enum!
 
     @ManyToOne
+    @JoinColumn
     private Room room;
 }
