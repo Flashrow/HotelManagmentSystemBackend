@@ -22,6 +22,7 @@ public class Reservation {
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
+    @JoinColumn
     private Client client;
     @ManyToOne
     private Residence residence;

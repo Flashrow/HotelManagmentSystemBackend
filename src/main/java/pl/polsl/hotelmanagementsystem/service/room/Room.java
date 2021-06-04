@@ -25,7 +25,10 @@ public class Room {
     private String description;
     private Double price;
 
-    @OneToMany
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            mappedBy = "room"
+    )
     private List<RoomIssue> roomIssues;
     @OneToMany
     private List<Residence> residences;

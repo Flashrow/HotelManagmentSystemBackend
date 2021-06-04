@@ -17,7 +17,9 @@ public class RoomIssue {
     private String status; //TODO: change to enum
 
     @ManyToOne
+    @JoinColumn
     private Client client;
     @ManyToOne
+    @JoinColumn
     private Room room;
 }

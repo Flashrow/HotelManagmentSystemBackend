@@ -28,9 +28,17 @@ public class Client {
     private String address;
     private String phoneNumber;
     private String password;
-    @OneToMany
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "client"
+    )
     private List<RoomIssue> roomIssues;
-    @OneToMany
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "client"
+    )
     private List<Reservation> reservations;
     @OneToMany
     private List<CheckedIn> checkedIns;
