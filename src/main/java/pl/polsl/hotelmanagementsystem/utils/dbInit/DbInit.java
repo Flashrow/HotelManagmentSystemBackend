@@ -12,6 +12,7 @@ import pl.polsl.hotelmanagementsystem.service.staff.StaffRepository;
 import pl.polsl.hotelmanagementsystem.service.user.Role;
 
 import javax.annotation.PostConstruct;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -56,8 +57,6 @@ public class DbInit {
     //TODO: never, ever try leaving this function up for production
     @PostConstruct
     private void postConstruct(){
-        List<Role> clientRoles = new LinkedList<>();
-        clientRoles.add(Role.ROLE_CLIENT);
         Client client = Client.builder()
                 .email("client")
                 .firstName("client")
@@ -68,7 +67,7 @@ public class DbInit {
                 .address("Warszawa 12")
                 .phoneNumber("512-353-662")
                 .password(passwordEncoder.encode("string"))
-                .roles(clientRoles)
+                .roles(new LinkedList<Role>(Collections.singletonList(Role.ROLE_CLIENT)))
                 .build();
         clientRepository.save(client);
 
