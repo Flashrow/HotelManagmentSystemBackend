@@ -78,4 +78,15 @@ public class ReservationService {
 
         return blackoutTimeDTOS;
     }
+
+    public ClientFoodPreference addClientFoodPreference(Long reservationId, String preference){
+        ClientFoodPreference clientFoodPreference = ClientFoodPreference.builder()
+                .reservation(reservationRepository.findById(
+                        reservationId).orElseThrow(() -> new ObjectExistsException(
+                                "Reservation with id: " + reservationId + " does not exist")))
+                .preference(preference)
+                .build();
+        clientFoodPreferenceRepository.save(clientFoodPreference);
+        return clientFoodPreference;
+    }
 }

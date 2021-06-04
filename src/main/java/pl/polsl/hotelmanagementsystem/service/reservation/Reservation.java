@@ -25,9 +25,8 @@ public class Reservation {
     private Client client;
     @ManyToOne
     private Residence residence;
-    @OneToMany(mappedBy = "clientFoodPreference")
+    @OneToMany
     private List<ClientFoodPreference> clientFoodPreferences;
-
     @OneToMany
     private List<Payment> payments;
     private String comments;

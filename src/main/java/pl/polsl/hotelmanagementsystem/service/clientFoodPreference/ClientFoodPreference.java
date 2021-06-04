@@ -1,12 +1,16 @@
 package pl.polsl.hotelmanagementsystem.service.clientFoodPreference;
 
-import lombok.NoArgsConstructor;
+import lombok.*;
 import pl.polsl.hotelmanagementsystem.service.reservation.Reservation;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class ClientFoodPreference {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
@@ -14,8 +18,5 @@ public class ClientFoodPreference {
     @ManyToOne
     private Reservation reservation;
     private String preference;
-    @ManyToOne(optional = false)
-    private Reservation clientFoodPreference;
-
 
 }
