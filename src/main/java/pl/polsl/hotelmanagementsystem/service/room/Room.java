@@ -1,6 +1,7 @@
 package pl.polsl.hotelmanagementsystem.service.room;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import pl.polsl.hotelmanagementsystem.service.equipmentQuantity.EquipmentQuantity;
@@ -17,8 +18,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityReference(alwaysAsId = true)
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

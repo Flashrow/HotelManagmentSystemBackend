@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.polsl.hotelmanagementsystem.controller.dto.AddReservationDTO;
 import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPreference;
 import pl.polsl.hotelmanagementsystem.service.payment.Payment;
+import pl.polsl.hotelmanagementsystem.service.reservation.Reservation;
 import pl.polsl.hotelmanagementsystem.service.reservation.ReservationService;
 import pl.polsl.hotelmanagementsystem.service.residence.Residence;
 
@@ -23,6 +24,11 @@ public class ReservationController {
     @GetMapping(path = "/getMyResidences")
     public List<Residence> getMyResidences(){
         return reservationService.getMyResidences();
+    }
+
+    @GetMapping(path = "/{reservation_id}/getReservation")
+    public Reservation getReservation(@PathVariable("reservation_id") Long reservationId){
+        return reservationService.getReservation(reservationId);
     }
 
     @PostMapping(path = "/addFoodPreference")
