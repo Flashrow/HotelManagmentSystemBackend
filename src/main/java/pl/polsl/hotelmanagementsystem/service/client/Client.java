@@ -1,5 +1,8 @@
 package pl.polsl.hotelmanagementsystem.service.client;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import pl.polsl.hotelmanagementsystem.service.checkedIn.CheckedIn;
 import pl.polsl.hotelmanagementsystem.service.reservation.Reservation;
@@ -15,6 +18,9 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
+@JsonIdentityReference(alwaysAsId = true)
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
