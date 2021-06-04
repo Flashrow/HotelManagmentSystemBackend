@@ -56,6 +56,8 @@ public class DbInit {
     //TODO: never, ever try leaving this function up for production
     @PostConstruct
     private void postConstruct(){
+        List<Role> clientRoles = new LinkedList<>();
+        clientRoles.add(Role.ROLE_CLIENT);
         Client client = Client.builder()
                 .email("client")
                 .firstName("client")
@@ -66,7 +68,7 @@ public class DbInit {
                 .address("Warszawa 12")
                 .phoneNumber("512-353-662")
                 .password(passwordEncoder.encode("string"))
-                .roles(staffRoleListCreator(Role.ROLE_CLIENT))
+                .roles(clientRoles)
                 .build();
         clientRepository.save(client);
 
