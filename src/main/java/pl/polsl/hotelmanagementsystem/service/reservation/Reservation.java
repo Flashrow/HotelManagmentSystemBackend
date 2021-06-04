@@ -21,16 +21,18 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@JsonIdentityReference(alwaysAsId = true)
+//@JsonIdentityReference(alwaysAsId = true)
 public class Reservation {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn
+    @JsonIdentityReference(alwaysAsId = true)
     private Client client;
     @ManyToOne
     @JoinColumn
+    @JsonIdentityReference(alwaysAsId = true)
     private Residence residence;
     @OneToMany(
             cascade = CascadeType.ALL,
