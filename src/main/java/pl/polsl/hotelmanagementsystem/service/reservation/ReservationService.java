@@ -58,7 +58,6 @@ public class ReservationService {
                 .build();
         reservationRepository.save(reservation);
         return reservation.getId();
-        //return "Reservation added";
     }
 
     public List<Residence> getMyResidences(){

@@ -21,14 +21,4 @@ public class UserController {
         return userService.login(loginDTO);     // everyone can login
     }
 
-
-//    //TODO DELETE BEFORE PRODUCTION
-//    @PostMapping(path = "/TESTLogin")
-//    public String TESTLogin(@RequestBody LoginDTO loginDTO){
-//        return userService.TESTLogin(loginDTO); // only staff can login
-//    }
-//    @PostMapping(path = "/TESTRegister")
-//    public String TESTRegister(@RequestBody TESTSignUpDTO testSignUpDTO){
-//        return userService.TESTRegister(testSignUpDTO); // only staff can register
-//    }
 }

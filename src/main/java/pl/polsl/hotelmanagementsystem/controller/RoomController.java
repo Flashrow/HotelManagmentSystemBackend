@@ -24,8 +24,8 @@ public class RoomController {
     public List<Room> getAllRooms(){
         return roomService.getAllRooms();
     }
-    @GetMapping(path = "/{id}/blackoutDays")
-    public List<BlackoutTimeDTO> getRoomBlackoutDays(@PathVariable("id") Long roomId){
+    @GetMapping(path = "/{room_id}/blackoutDays")
+    public List<BlackoutTimeDTO> getRoomBlackoutDays(@PathVariable("room_id") Long roomId){
         return reservationService.getBlackoutDays(roomId);
     }
 }

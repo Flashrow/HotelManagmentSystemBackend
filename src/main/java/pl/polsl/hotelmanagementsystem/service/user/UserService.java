@@ -37,27 +37,4 @@ public class UserService {
         }
     }
 
-
-
-//    public String TESTLogin(LoginDTO loginDTO){
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword()));
-//        return "Bearer " + jwtTokenProvider.createToken(loginDTO.getEmail(), staffRepository.findByEmail(loginDTO.getEmail()).get().getRoles());
-//    }
-//
-//    private final PasswordEncoder passwordEncoder;
-//    public String TESTRegister(TESTSignUpDTO testSignUpDTO){
-//        LinkedList<Role> roles = new LinkedList<>();
-//        roles.add(testSignUpDTO.getRole());
-//        Staff staff = Staff.builder()
-//                .firstName(testSignUpDTO.getName())
-//                .lastName(testSignUpDTO.getSurname())
-//                .email(testSignUpDTO.getEmail())
-//                .password(passwordEncoder.encode(testSignUpDTO.getPassword()))
-//                .roles(roles)
-//                .build();
-//
-//        staffRepository.save(staff);
-//        return "Zarejestrowany testowy uzytkownik";
-//    }
 }
