@@ -11,12 +11,14 @@ import pl.polsl.hotelmanagementsystem.service.client.ClientService;
 import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPreference;
 import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPreferenceRepository;
 import pl.polsl.hotelmanagementsystem.service.payment.Payment;
+import pl.polsl.hotelmanagementsystem.service.payment.PaymentRepository;
 import pl.polsl.hotelmanagementsystem.service.residence.Residence;
 import pl.polsl.hotelmanagementsystem.service.residence.ResidenceRepository;
 import pl.polsl.hotelmanagementsystem.service.room.Room;
 import pl.polsl.hotelmanagementsystem.service.room.RoomRepository;
 import pl.polsl.hotelmanagementsystem.utils.exception.ObjectExistsException;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
 public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final RoomRepository roomRepository;
+    private final PaymentRepository paymentRepository;
     private final ClientFoodPreferenceRepository clientFoodPreferenceRepository;
     private final ResidenceRepository residenceRepository;
     private final ClientService clientService;
@@ -78,15 +81,28 @@ public class ReservationService {
 
         return blackoutTimeDTOS;
     }
+    private Reservation getReservationFromIdOrThrow(Long reservationId){
+        return reservationRepository.findById(
+                reservationId).orElseThrow(() -> new ObjectExistsException(
+                "Reservation with id: " + reservationId + " does not exist"));
 
+    }
     public ClientFoodPreference addClientFoodPreference(Long reservationId, String preference){
         ClientFoodPreference clientFoodPreference = ClientFoodPreference.builder()
-                .reservation(reservationRepository.findById(
-                        reservationId).orElseThrow(() -> new ObjectExistsException(
-                                "Reservation with id: " + reservationId + " does not exist")))
+                .reservation(getReservationFromIdOrThrow(reservationId))
                 .preference(preference)
                 .build();
         clientFoodPreferenceRepository.save(clientFoodPreference);
         return clientFoodPreference;
+    }
+
+    public Payment addPayment(Long reservationId, Double amount) {
+        Payment payment = Payment.builder()
+                .reservation(getReservationFromIdOrThrow(reservationId))
+                .cost(amount)
+                .date(new Date())
+                .build();
+        paymentRepository.save(payment);
+        return payment;
     }
 }
