@@ -11,6 +11,7 @@ public class Review {
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
+    @JoinColumn
     private CheckedIn checkedIn;
     private Date date;
     private String content;

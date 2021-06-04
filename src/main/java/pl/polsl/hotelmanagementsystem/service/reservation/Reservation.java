@@ -20,8 +20,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @JsonIdentityReference(alwaysAsId = true)
 public class Reservation {
     @Id
@@ -31,6 +30,7 @@ public class Reservation {
     @JoinColumn
     private Client client;
     @ManyToOne
+    @JoinColumn
     private Residence residence;
     @OneToMany(
             cascade = CascadeType.ALL,

@@ -15,9 +15,14 @@ public class CheckedIn {
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
+    @JoinColumn
     private Client client;
     @ManyToOne
+    @JoinColumn
     private Residence residence;
-    @OneToMany
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            mappedBy = "checkedIn"
+    )
     private List<Review> reviews;
 }

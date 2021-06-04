@@ -34,7 +34,9 @@ public class Room {
             mappedBy = "room"
     )
     private List<RoomIssue> roomIssues;
-    @OneToMany
+    @OneToMany(
+            mappedBy = "room"
+    )
     private List<Residence> residences;
     @OneToMany(
             mappedBy = "room"

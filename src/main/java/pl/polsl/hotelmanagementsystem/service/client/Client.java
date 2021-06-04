@@ -18,8 +18,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @JsonIdentityReference(alwaysAsId = true)
 public class Client {
     @Id
@@ -46,7 +45,11 @@ public class Client {
             mappedBy = "client"
     )
     private List<Reservation> reservations;
-    @OneToMany
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "client"
+    )
     private List<CheckedIn> checkedIns;
     @ElementCollection(fetch = FetchType.EAGER)
     private List<Role> roles;

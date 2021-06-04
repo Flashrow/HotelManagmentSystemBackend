@@ -21,11 +21,16 @@ public class Residence {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany
+    @OneToMany(
+            mappedBy = "residence"
+    )
     private List<CheckedIn> checkedIns;
-    @OneToMany
+    @OneToMany(
+            mappedBy = "residence"
+    )
     private List<Reservation> reservations;
     @ManyToOne
+    @JoinColumn
     private Room room;
     private Date startDate;
     private Date endDate;
