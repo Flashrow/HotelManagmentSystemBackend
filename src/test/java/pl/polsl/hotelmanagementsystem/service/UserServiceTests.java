@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import pl.polsl.hotelmanagementsystem.controller.dto.LoginDTO;
@@ -33,6 +34,7 @@ public class UserServiceTests {
     @InjectMocks
     private UserService userService;
 
+    //These tests make no sense, but they are an okayish learning material for service testing learning.
     @Test
     void shouldNotLoginDoesNotExist() throws Exception{
         LoginDTO loginDTO = new LoginDTO("bad", "veryBad");
@@ -53,7 +55,7 @@ public class UserServiceTests {
         Authentication authentication = Mockito.mock(Authentication.class);
         Mockito.when(authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword())))
-                .thenThrow(new ObjectExistsException("Invalid username/password"));
+                .thenThrow(new BadCredentialsException(""));
         Exception exception = assertThrows(ObjectExistsException.class, () -> {
             userService.login(loginDTO);
         });
