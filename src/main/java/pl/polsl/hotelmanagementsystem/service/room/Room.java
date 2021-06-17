@@ -1,6 +1,7 @@
 package pl.polsl.hotelmanagementsystem.service.room;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import pl.polsl.hotelmanagementsystem.service.equipmentQuantity.EquipmentQuantity;
@@ -28,15 +29,18 @@ public class Room {
     private String description;
     private Double price;
 
+    @JsonIgnore
     @OneToMany(
             fetch = FetchType.LAZY,
             mappedBy = "room"
     )
     private List<RoomIssue> roomIssues;
+    @JsonIgnore
     @OneToMany(
             mappedBy = "room"
     )
     private List<Residence> residences;
+    @JsonIgnore
     @OneToMany(
             mappedBy = "room"
     )
