@@ -35,13 +35,11 @@ public class Reservation {
     @JsonIdentityReference(alwaysAsId = true)
     private Residence residence;
     @OneToMany(
-            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "reservation"
     )
     private List<ClientFoodPreference> clientFoodPreferences;
     @OneToMany(
-            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "reservation"
     )

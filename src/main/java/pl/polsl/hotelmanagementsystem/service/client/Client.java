@@ -32,19 +32,19 @@ public class Client {
     private String phoneNumber;
     private String password;
     @OneToMany(
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.REMOVE,
             fetch = FetchType.LAZY,
             mappedBy = "client"
     )
     private List<RoomIssue> roomIssues;
     @OneToMany(
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.DETACH,
             fetch = FetchType.LAZY,
             mappedBy = "client"
     )
     private List<Reservation> reservations;
     @OneToMany(
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.REMOVE,
             fetch = FetchType.LAZY,
             mappedBy = "client"
     )
