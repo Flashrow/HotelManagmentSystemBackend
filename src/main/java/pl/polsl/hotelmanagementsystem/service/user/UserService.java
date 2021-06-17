@@ -34,7 +34,7 @@ public class UserService {
                 bearer = jwtTokenProvider.createToken(loginDTO.getEmail(), clientRepository.findByEmail(loginDTO.getEmail()).get().getRoles());
             } else if (authentication.getAuthorities().contains(Role.ROLE_STAFF)) {
                 bearer = jwtTokenProvider.createToken(loginDTO.getEmail(), staffRepository.findByEmail(loginDTO.getEmail()).get().getRoles());
-            } else throw new ObjectExistsException("User with given password does not exist");
+            } else throw new ObjectExistsException("User with given login does not exist");
             return "Bearer " + bearer;
         }
         catch (AuthenticationException authenticationException){
