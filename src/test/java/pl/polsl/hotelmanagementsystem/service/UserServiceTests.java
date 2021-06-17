@@ -53,7 +53,7 @@ public class UserServiceTests {
         Authentication authentication = Mockito.mock(Authentication.class);
         Mockito.when(authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword())))
-                .thenReturn(authentication);
+                .thenThrow(new ObjectExistsException("Invalid username/password"));
         Exception exception = assertThrows(ObjectExistsException.class, () -> {
             userService.login(loginDTO);
         });
