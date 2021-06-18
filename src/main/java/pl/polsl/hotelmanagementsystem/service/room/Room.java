@@ -28,6 +28,7 @@ public class Room {
     private Integer floor;
     private String description;
     private Double price;
+    private String imageLink;
 
     @JsonIgnore
     @OneToMany(
