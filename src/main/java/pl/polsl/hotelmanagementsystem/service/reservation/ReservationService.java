@@ -105,7 +105,7 @@ public class ReservationService {
         paymentRepository.save(payment);
         return payment;
     }
-    //TODO jackson error
+
     public Reservation getReservation(Long reservationId) {
         return reservationRepository
                 .findById(reservationId).orElseThrow(
