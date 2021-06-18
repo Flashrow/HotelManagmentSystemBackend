@@ -8,6 +8,7 @@ import pl.polsl.hotelmanagementsystem.service.reservation.ReservationService;
 import pl.polsl.hotelmanagementsystem.service.room.Room;
 import pl.polsl.hotelmanagementsystem.service.room.RoomService;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -31,5 +32,9 @@ public class RoomController {
     @GetMapping(path = "/{room-id}/addRoomIssue")
     public void addRoomIssue(@PathVariable("room-id") Long roomId){
         //TODO
+    }
+    @PostMapping(path = "/{room-id/addReview")
+    public void addReview(Date date, String content){
+        //TODO - remember to allow this only to logged users that used this room
     }
 }

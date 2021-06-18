@@ -22,5 +22,36 @@ public class StaffController {
     public void resolveRoomIssues(@PathVariable("issue-id") Long roomId){
         //TODO
     }
-
+    @PostMapping(path = "/reception/acceptPayment")
+    public void acceptPayment(Long reservationId){
+        //TODO - no idea what this should do as of now
+    }
+    @PostMapping(path = "/reception/checkIn")
+    public void checkIn(Long clientId, Long residenceId){
+        //TODO
+    }
+    @PostMapping(path = "/reception/checkOut")
+    public void checkOut(Long clientId, Long residenceId){
+        //TODO
+    }
+    @PostMapping(path = "/reception/addResidence")
+    public void addResidence(Long roomID){
+        //TODO
+    }
+    @PostMapping(path = "/reception/modifyClientReservation/{reservation-id}")
+    public void modifyClientReservation(@PathVariable("reservation-id") Long reservationId){
+        //TODO
+    }
+    @GetMapping(path = "/manager/getExpenses")
+    public void getExpenses(){
+        //TODO
+    }
+    @GetMapping(path = "/manager/getHotelInformation")
+    public String getHotelInformation(){
+        return "Tak, to jest hotel"; //TODO ???
+    }
+    @GetMapping(path = "/manager/getHotelHistory")
+    public void getHotelHistory(){
+        //TODO ???
+    }
 }
