@@ -14,10 +14,10 @@ public class RoomIssue {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String type; //TODO: change to enum
+    private RoomIssueType roomIssueType;
     private String description;
     private Date date;
-    private String status; //TODO: change to enum
+    private RoomIssueStatus roomIssueStatus;
 
     @ManyToOne
     @JoinColumn

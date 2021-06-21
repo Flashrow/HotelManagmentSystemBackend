@@ -20,7 +20,7 @@ public class Expense {
     private Long id;
     private Double amount;
     private Date date;
-    private String ExpensesType;    //TODO: enum!
+    private ExpenseType expenseType;
 
     @JsonIdentityReference(alwaysAsId = true)
     @ManyToOne
