@@ -16,6 +16,7 @@ import pl.polsl.hotelmanagementsystem.utils.security.jwt.JwtTokenProvider;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedList;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -76,6 +77,15 @@ public class ClientService {
                  .address(client.getAddress())
                  .build();
     }
+
+    public Client getClientById(Long id){
+        return clientRepository.findById(id).orElseThrow();
+    }
+
+    public List<Client> getAllClients(){
+        return clientRepository.findAll();
+    }
+    
     public Client whoami(){
         return search(SecurityContextHolder.getContext().getAuthentication().getName());
     }
