@@ -35,4 +35,10 @@ public class RestResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleDateAlreadyBookedException(DateAlreadyBookedException dateAlreadyBookedException){
         return new ResponseEntity<Object>(dateAlreadyBookedException.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(AccessException.class)
+    protected ResponseEntity<Object> handleDateAlreadyBookedException(AccessException accessException){
+        return new ResponseEntity<Object>(accessException.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
 }

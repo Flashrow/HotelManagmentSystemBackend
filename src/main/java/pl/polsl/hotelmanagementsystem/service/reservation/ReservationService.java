@@ -16,6 +16,8 @@ import pl.polsl.hotelmanagementsystem.service.residence.Residence;
 import pl.polsl.hotelmanagementsystem.service.residence.ResidenceRepository;
 import pl.polsl.hotelmanagementsystem.service.room.Room;
 import pl.polsl.hotelmanagementsystem.service.room.RoomRepository;
+import pl.polsl.hotelmanagementsystem.utils.exception.AccessException;
+import pl.polsl.hotelmanagementsystem.utils.exception.DateAlreadyBookedException;
 import pl.polsl.hotelmanagementsystem.utils.exception.ObjectExistsException;
 
 import java.util.Date;
@@ -33,12 +35,13 @@ public class ReservationService {
     private final ResidenceRepository residenceRepository;
     private final ClientService clientService;
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = DateAlreadyBookedException.class)
     public Long addReservation(AddReservationDTO addReservationDTO){
         List<ClientFoodPreference> clientFoodPreferences = new LinkedList<>();
         List<Payment> payments = new LinkedList<>();
         List<CheckedIn> checkedIns = new LinkedList<>();
-
+        // TODO check if there is reservation for the said residence before adding
+        // We want a function that returns true if the room that we are booking is already booked in our dates
         Residence residence = Residence.builder()
                 .checkedIns(checkedIns)
                 .startDate(addReservationDTO.getStartDate())
@@ -50,7 +53,7 @@ public class ReservationService {
                 )
                 .build();
         residenceRepository.save(residence);
-        // TODO check if there is reservation for the said residence before adding
+
         Client client = clientService.whoami();
         Reservation reservation = Reservation.builder()
                 .residence(residence)
@@ -61,6 +64,28 @@ public class ReservationService {
                 .build();
         reservationRepository.save(reservation);
         return reservation.getId();
+    }
+
+    // Frontend does check - we can do them if we want while refactoring
+    private void modifyReservationBase(Long reservationId, AddReservationDTO addReservationDTO){
+
+    }
+    public void modifyClientReservation(Long reservationId, AddReservationDTO addReservationDTO){
+        //TODO - requires getClient from clientCService
+        //Client client = clientService.getClientDetails()
+    }
+    //TODO - need saving
+    public void modifyMyReservation(Long reservationId, AddReservationDTO addReservationDTO) {
+        Client client = clientService.whoami();
+        Reservation reservation = reservationRepository.findById(reservationId).orElseThrow();
+        if (client.getReservations().contains(reservation)){
+            reservation.setComments(addReservationDTO.getComment());
+            reservation.getResidence().setRoom(roomRepository.findById(addReservationDTO.getRoomId()).orElseThrow());
+            reservation.getResidence().setStartDate(addReservationDTO.getStartDate());
+            reservation.getResidence().setEndDate(addReservationDTO.getEndDate());
+            reservationRepository.save(reservation);
+        }
+        else throw new AccessException("Client does not have access to this reservation");
     }
 
     public List<Residence> getMyResidences(){

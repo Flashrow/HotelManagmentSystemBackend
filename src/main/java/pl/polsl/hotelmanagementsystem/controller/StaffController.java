@@ -2,6 +2,7 @@ package pl.polsl.hotelmanagementsystem.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import pl.polsl.hotelmanagementsystem.controller.dto.AddReservationDTO;
 import pl.polsl.hotelmanagementsystem.controller.dto.KitchenTimeOfDayEnum;
 
 @RestController
@@ -22,6 +23,12 @@ public class StaffController {
     public void resolveRoomIssues(@PathVariable("issue-id") Long roomId){
         //TODO
     }
+
+    @PostMapping(path = "/reception/getAllClients")
+    public void getAllClients(){
+        //TODO
+    }
+
     @PostMapping(path = "/reception/acceptPayment")
     public void acceptPayment(Long reservationId){
         //TODO - no idea what this should do as of now
@@ -39,7 +46,7 @@ public class StaffController {
         //TODO
     }
     @PostMapping(path = "/reception/modifyClientReservation/{reservation-id}")
-    public void modifyClientReservation(@PathVariable("reservation-id") Long reservationId){
+    public void modifyClientReservation(@PathVariable("reservation-id") Long reservationId, Long clientId, AddReservationDTO addReservationDTO){
         //TODO
     }
     @GetMapping(path = "/manager/getExpenses")
