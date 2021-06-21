@@ -85,7 +85,7 @@ public class ClientService {
     public List<Client> getAllClients(){
         return clientRepository.findAll();
     }
-    
+
     public Client whoami(){
         return search(SecurityContextHolder.getContext().getAuthentication().getName());
     }

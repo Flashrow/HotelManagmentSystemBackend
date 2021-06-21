@@ -6,6 +6,7 @@ import pl.polsl.hotelmanagementsystem.controller.dto.AddReservationDTO;
 import pl.polsl.hotelmanagementsystem.controller.dto.ClientDetailsDTO;
 import pl.polsl.hotelmanagementsystem.controller.dto.SignUpDTO;
 import pl.polsl.hotelmanagementsystem.service.client.ClientService;
+import pl.polsl.hotelmanagementsystem.service.reservation.ReservationService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping(path = "/clients")
 public class ClientController {
     private final ClientService clientService;
+    private final ReservationService reservationService;
 
     @PostMapping(path = "/signup")
     public String signUp(@RequestBody SignUpDTO signUpDTO){
@@ -26,7 +28,7 @@ public class ClientController {
     }
     @PostMapping(path = "/modifyMyReservation/{reservation-id}")
     public void modifyMyReservation(@PathVariable("reservation-id") Long reservationId, AddReservationDTO addReservationDTO){
-        //TODO
+        reservationService.modifyMyReservation(reservationId, addReservationDTO);
     }
     @GetMapping(path = "/getMyHistory")
     public void getMyHistory(){

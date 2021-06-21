@@ -67,16 +67,7 @@ public class ReservationService {
     }
 
     // Frontend does check - we can do them if we want while refactoring
-    private void modifyReservationBase(Long reservationId, AddReservationDTO addReservationDTO){
-
-    }
-    public void modifyClientReservation(Long reservationId, AddReservationDTO addReservationDTO){
-        //TODO - requires getClient from clientCService
-        //Client client = clientService.getClientDetails()
-    }
-    //TODO - need saving
-    public void modifyMyReservation(Long reservationId, AddReservationDTO addReservationDTO) {
-        Client client = clientService.whoami();
+    private void modifyReservationBase(Long reservationId, Client client, AddReservationDTO addReservationDTO) {
         Reservation reservation = reservationRepository.findById(reservationId).orElseThrow();
         if (client.getReservations().contains(reservation)){
             reservation.setComments(addReservationDTO.getComment());
@@ -86,6 +77,14 @@ public class ReservationService {
             reservationRepository.save(reservation);
         }
         else throw new AccessException("Client does not have access to this reservation");
+    }
+    public void modifyClientReservation(Long reservationId, Long clientId, AddReservationDTO addReservationDTO){
+        Client client = clientService.getClientById(clientId);
+        modifyReservationBase(reservationId, client, addReservationDTO);
+    }
+    public void modifyMyReservation(Long reservationId, AddReservationDTO addReservationDTO) {
+        Client client = clientService.whoami();
+        modifyReservationBase(reservationId, client, addReservationDTO);
     }
 
     public List<Residence> getMyResidences(){
