@@ -33,7 +33,7 @@ public class ReservationService {
     private final ResidenceRepository residenceRepository;
     private final ClientService clientService;
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Long addReservation(AddReservationDTO addReservationDTO){
         List<ClientFoodPreference> clientFoodPreferences = new LinkedList<>();
         List<Payment> payments = new LinkedList<>();
@@ -50,7 +50,7 @@ public class ReservationService {
                 )
                 .build();
         residenceRepository.save(residence);
-
+        // TODO check if there is reservation for the said residence before adding
         Client client = clientService.whoami();
         Reservation reservation = Reservation.builder()
                 .residence(residence)

@@ -2,6 +2,7 @@ package pl.polsl.hotelmanagementsystem.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import pl.polsl.hotelmanagementsystem.controller.dto.AddReservationDTO;
 import pl.polsl.hotelmanagementsystem.controller.dto.LoginDTO;
 import pl.polsl.hotelmanagementsystem.service.client.ClientService;
 import pl.polsl.hotelmanagementsystem.service.user.UserService;
@@ -24,8 +25,5 @@ public class UserController {
     public List<String> whatRolesAmI(){
         return userService.whatRolesAmI();
     }
-    @PostMapping(path = "/modifyMyReservation/{reservation-id}")
-    public void modifyMyReservation(@PathVariable("reservation-id") Long reservationId){
-        //TODO
-    }
+
 }
