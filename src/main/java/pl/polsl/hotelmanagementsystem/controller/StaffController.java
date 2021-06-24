@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.hotelmanagementsystem.controller.dto.AddReservationDTO;
 import pl.polsl.hotelmanagementsystem.controller.dto.KitchenTimeOfDayEnum;
+import pl.polsl.hotelmanagementsystem.service.checkedIn.CheckedInService;
 import pl.polsl.hotelmanagementsystem.service.client.Client;
 import pl.polsl.hotelmanagementsystem.service.client.ClientService;
 import pl.polsl.hotelmanagementsystem.service.reservation.ReservationService;
@@ -16,6 +17,7 @@ import java.util.List;
 public class StaffController {
     private final ClientService clientService;
     private final ReservationService reservationService;
+    private final CheckedInService checkedInService;
     @GetMapping(path = "/kitchen/getFoodPreferences/{time-of-day}")
     public void getFoodPreferences(@PathVariable("time-of-day") KitchenTimeOfDayEnum timeOfDay){
         //TODO - leave it to free workforce
@@ -41,10 +43,10 @@ public class StaffController {
     }
     @PostMapping(path = "/reception/checkIn")
     public void checkIn(Long clientId, Long residenceId){
-        //TODO
+        checkedInService.checkIn(clientId, residenceId);
     }
     @PostMapping(path = "/reception/checkOut")
-    public void checkOut(Long clientId, Long residenceId){
+    public void checkOut(Long checkedInId){
         //TODO
     }
     @PostMapping(path = "/reception/addResidence")

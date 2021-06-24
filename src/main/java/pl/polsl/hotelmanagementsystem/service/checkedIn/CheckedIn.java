@@ -3,7 +3,7 @@ package pl.polsl.hotelmanagementsystem.service.checkedIn;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import pl.polsl.hotelmanagementsystem.service.client.Client;
 import pl.polsl.hotelmanagementsystem.service.residence.Residence;
 import pl.polsl.hotelmanagementsystem.service.review.Review;
@@ -12,7 +12,11 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Setter
+@Getter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class CheckedIn {
     @Id
