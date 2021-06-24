@@ -29,10 +29,7 @@ public class RoomController {
     public List<BlackoutTimeDTO> getRoomBlackoutDays(@PathVariable("room_id") Long roomId){
         return reservationService.getBlackoutDays(roomId);
     }
-    @GetMapping(path = "/{room-id}/addRoomIssue")
-    public void addRoomIssue(@PathVariable("room-id") Long roomId){
-        //TODO
-    }
+
     @PostMapping(path = "/{room-id/addReview")
     public void addReview(Date date, String content){
         //TODO - remember to allow this only to logged users that used this room
