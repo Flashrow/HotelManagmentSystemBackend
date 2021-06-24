@@ -29,5 +29,9 @@ public class CheckedInService {
         checkedInRepository.save(checkedIn);
     }
 
-    //public void checkOut(Long )
+    public void checkOut(Long checkedInId){
+        CheckedIn checkedIn = checkedInRepository.findById(checkedInId).orElseThrow();
+        checkedIn.setCheckedInStatus(CheckedInStatus.CHECKED_OUT);
+        checkedInRepository.save(checkedIn);
+    }
 }

@@ -47,7 +47,7 @@ public class StaffController {
     }
     @PostMapping(path = "/reception/checkOut")
     public void checkOut(Long checkedInId){
-        //TODO
+        checkedInService.checkOut(checkedInId);
     }
     @PostMapping(path = "/reception/addResidence")
     public void addResidence(Long roomID){
