@@ -52,8 +52,15 @@ public class RoomService {
                 .client(client)
                 .date(new Date())
                 .description(addRoomIssueDTO.getDescription())
+                .roomIssueType(addRoomIssueDTO.getRoomIssueType())
                 .roomIssueStatus(RoomIssueStatus.REPORTED)
                 .build();
         roomIssueRepository.save(roomIssue);
+    }
+
+    public List<RoomIssue> getMyRoomIssues(){
+        Client client = clientService.whoami();
+        List<RoomIssue> roomIssues = roomIssueRepository.findByClient(client);
+        return roomIssues;
     }
 }

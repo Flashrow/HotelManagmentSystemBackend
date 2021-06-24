@@ -12,7 +12,6 @@ import pl.polsl.hotelmanagementsystem.service.room.RoomService;
 import pl.polsl.hotelmanagementsystem.service.roomIssue.RoomIssue;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -46,8 +45,7 @@ public class ClientController {
     }
     @GetMapping(path = "/getMyRoomIssues")
     public List<RoomIssue> getMyRoomIssues(){
-        return new LinkedList<>();
-        //TODO
+        return roomService.getMyRoomIssues();
     }
 
 }
