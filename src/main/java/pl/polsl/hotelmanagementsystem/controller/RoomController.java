@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.hotelmanagementsystem.controller.dto.BlackoutTimeDTO;
 import pl.polsl.hotelmanagementsystem.controller.dto.NewRoomDTO;
+import pl.polsl.hotelmanagementsystem.service.checkedIn.CheckedInService;
 import pl.polsl.hotelmanagementsystem.service.reservation.ReservationService;
 import pl.polsl.hotelmanagementsystem.service.room.Room;
 import pl.polsl.hotelmanagementsystem.service.room.RoomService;
@@ -17,6 +18,7 @@ import java.util.List;
 public class RoomController {
     private final RoomService roomService;
     private final ReservationService reservationService;
+    private final CheckedInService checkedInService;
     @PostMapping(path = "/addRoom")
     public void addRoom(@RequestBody NewRoomDTO newRoomDTO){
         roomService.addRoom(newRoomDTO);
@@ -29,9 +31,9 @@ public class RoomController {
     public List<BlackoutTimeDTO> getRoomBlackoutDays(@PathVariable("room_id") Long roomId){
         return reservationService.getBlackoutDays(roomId);
     }
-
-    @PostMapping(path = "/{room-id/addReview")
-    public void addReview(Date date, String content){
-        //TODO - remember to allow this only to logged users that used this room
+    // TODO - only for logged users, might relocate
+    @PostMapping(path = "/addReview")
+    public void addReview(Long checkedInId, Date date, String content){
+        checkedInService.addReview(checkedInId, date, content);
     }
 }

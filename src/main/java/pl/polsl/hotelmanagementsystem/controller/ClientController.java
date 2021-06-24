@@ -36,7 +36,7 @@ public class ClientController {
         reservationService.modifyMyReservation(reservationId, addReservationDTO);
     }
     @GetMapping(path = "/getMyHistory")
-    public void getMyHistory(){
+    public void getMyHistory(){ // add list of your checkedIns here - a way to ged checkedIn id for add review
         //TODO - dont touch until everything else is done
     }
     @PostMapping(path = "/addRoomIssue")

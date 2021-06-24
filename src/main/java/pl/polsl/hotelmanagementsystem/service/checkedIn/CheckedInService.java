@@ -7,7 +7,9 @@ import pl.polsl.hotelmanagementsystem.service.client.ClientRepository;
 import pl.polsl.hotelmanagementsystem.service.residence.Residence;
 import pl.polsl.hotelmanagementsystem.service.residence.ResidenceRepository;
 import pl.polsl.hotelmanagementsystem.service.review.Review;
+import pl.polsl.hotelmanagementsystem.service.review.ReviewRepository;
 
+import java.util.Date;
 import java.util.LinkedList;
 
 @Service
@@ -16,6 +18,7 @@ public class CheckedInService {
     private final CheckedInRepository checkedInRepository;
     private final ClientRepository clientRepository;
     private final ResidenceRepository residenceRepository;
+    private final ReviewRepository reviewRepository;
 
     public void checkIn(Long clientId, Long residenceId) {
         Client client = clientRepository.findById(clientId).orElseThrow();
@@ -33,5 +36,15 @@ public class CheckedInService {
         CheckedIn checkedIn = checkedInRepository.findById(checkedInId).orElseThrow();
         checkedIn.setCheckedInStatus(CheckedInStatus.CHECKED_OUT);
         checkedInRepository.save(checkedIn);
+    }
+
+    public void addReview(Long checkedInId, Date date, String content){
+        CheckedIn checkedIn = checkedInRepository.findById(checkedInId).orElseThrow();
+        Review review = Review.builder()
+                .checkedIn(checkedIn)
+                .date(date)
+                .content(content)
+                .build();
+        reviewRepository.save(review);
     }
 }
