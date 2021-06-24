@@ -30,5 +30,7 @@ public class CheckedIn {
             cascade = CascadeType.ALL,
             mappedBy = "checkedIn"
     )
+
     private List<Review> reviews;
+    private CheckedInStatus checkedInStatus;
 }

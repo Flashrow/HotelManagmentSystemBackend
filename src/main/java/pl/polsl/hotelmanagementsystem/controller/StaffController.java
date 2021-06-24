@@ -18,16 +18,16 @@ public class StaffController {
     private final ReservationService reservationService;
     @GetMapping(path = "/kitchen/getFoodPreferences/{time-of-day}")
     public void getFoodPreferences(@PathVariable("time-of-day") KitchenTimeOfDayEnum timeOfDay){
-        //TODO
+        //TODO - leave it to free workforce
     }
 
     @GetMapping(path = "/roomService/{room-id}/getRoomIssues")
     public void getRoomIssues(@PathVariable("room-id") Long roomId){
-        //TODO
+        //TODO - leave it to free workforce
     }
     @PostMapping(path = "/roomService/resolveIssue/{issue-id}")
-    public void resolveRoomIssues(@PathVariable("issue-id") Long roomId){
-        //TODO
+    public void resolveRoomIssues(@PathVariable("issue-id") Long issueId){
+        //TODO - leave it to free workforce
     }
 
     @PostMapping(path = "/reception/getAllClients")
@@ -49,7 +49,7 @@ public class StaffController {
     }
     @PostMapping(path = "/reception/addResidence")
     public void addResidence(Long roomID){
-        //TODO
+        //TODO - leave it to free workforce
     }
     @PostMapping(path = "/reception/modifyClientReservation/{reservation-id}")
     public void modifyClientReservation(@PathVariable("reservation-id") Long reservationId, Long clientId, AddReservationDTO addReservationDTO){
