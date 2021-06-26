@@ -28,11 +28,15 @@ public class StaffController {
 
     @GetMapping(path = "/roomService/{room-id}/getRoomIssues")
     public void getRoomIssues(@PathVariable("room-id") Long roomId){
-        //TODO - leave it to free workforce
+        //TODO - leave it to free workforce - remember - show ONLY in_progress and reported.
+    }
+    @PostMapping(path = "/roomService/startIssue/{issue-id}")
+    public void startRoomIssue(@PathVariable("issue-id") Long issueId){
+        //TODO - leave it to free workforce - set the specified issue as in_progress
     }
     @PostMapping(path = "/roomService/resolveIssue/{issue-id}")
     public void resolveRoomIssues(@PathVariable("issue-id") Long issueId){
-        //TODO - leave it to free workforce
+        //TODO - leave it to free workforce  - set the specified issue as resolved
     }
 
     @PostMapping(path = "/reception/getAllClients")

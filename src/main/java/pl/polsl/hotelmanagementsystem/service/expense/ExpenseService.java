@@ -20,7 +20,7 @@ public class ExpenseService {
                 .amount(Math.random()*100d)
                 .expenseType(ExpenseType.SUPPLIES)
                 .date(new Date())
-                .room(roomRepository.findById(1l).orElseThrow())
+                .room(roomRepository.findById(1L).orElseThrow())
                 .build();
         expenseRepository.save(expense);
     }

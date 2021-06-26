@@ -1,5 +1,5 @@
 package pl.polsl.hotelmanagementsystem.service.roomIssue;
 
 public enum RoomIssueStatus {
-    REPORTED, IN_PROGRESS
+    REPORTED, IN_PROGRESS, RESOLVED
 }
