@@ -12,6 +12,7 @@ import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPre
 import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPreferenceRepository;
 import pl.polsl.hotelmanagementsystem.service.payment.Payment;
 import pl.polsl.hotelmanagementsystem.service.payment.PaymentRepository;
+import pl.polsl.hotelmanagementsystem.service.payment.PaymentStatus;
 import pl.polsl.hotelmanagementsystem.service.residence.Residence;
 import pl.polsl.hotelmanagementsystem.service.residence.ResidenceRepository;
 import pl.polsl.hotelmanagementsystem.service.room.Room;
@@ -125,6 +126,7 @@ public class ReservationService {
                 .reservation(getReservationFromIdOrThrow(reservationId))
                 .cost(amount)
                 .date(new Date())
+                .paymentStatus(PaymentStatus.REPORTED_BY_CLIENT)
                 .build();
         paymentRepository.save(payment);
         return payment;

@@ -28,4 +28,5 @@ public class Payment {
     private Reservation reservation;
     private Double cost;
     private Date date;
+    private PaymentStatus paymentStatus;
 }
