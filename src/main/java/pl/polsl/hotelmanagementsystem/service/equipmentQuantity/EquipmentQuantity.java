@@ -23,7 +23,7 @@ public class EquipmentQuantity {
     @ManyToOne
     @JoinColumn
     private Room room;
-    @JsonIdentityReference(alwaysAsId = true)
+//    @JsonIdentityReference(alwaysAsId = true)
     @ManyToOne
     @JoinColumn
     private Equipment equipment;
