@@ -11,6 +11,7 @@ import pl.polsl.hotelmanagementsystem.service.client.ClientService;
 import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPreferenceService;
 import pl.polsl.hotelmanagementsystem.service.expense.Expense;
 import pl.polsl.hotelmanagementsystem.service.expense.ExpenseService;
+import pl.polsl.hotelmanagementsystem.service.payment.PaymentService;
 import pl.polsl.hotelmanagementsystem.service.reservation.ReservationService;
 import pl.polsl.hotelmanagementsystem.service.room.RoomService;
 import pl.polsl.hotelmanagementsystem.service.roomIssue.RoomIssue;
@@ -31,6 +32,7 @@ public class StaffController {
     private final StaffService staffService;
     private final ClientFoodPreferenceService clientFoodPreferenceService;
     private final RoomService roomService;
+    private final PaymentService paymentService;
     @GetMapping(path = "/getMyDetails")
     public Staff getMyDetails(HttpServletRequest request){
         return staffService.whoami();
@@ -47,11 +49,11 @@ public class StaffController {
     }
     @PostMapping(path = "/roomService/startIssue/{issue-id}")
     public void startRoomIssue(@PathVariable("issue-id") Long issueId){
-        //TODO - leave it to free workforce - set the specified issue as in_progress
+        roomService.startRoomIssue(issueId);
     }
     @PostMapping(path = "/roomService/resolveIssue/{issue-id}")
     public void resolveRoomIssues(@PathVariable("issue-id") Long issueId){
-        //TODO - leave it to free workforce  - set the specified issue as resolved
+        roomService.resolveRoomIssues(issueId);
     }
 
     @PostMapping(path = "/reception/getAllClients")
@@ -60,8 +62,8 @@ public class StaffController {
     }
 
     @PostMapping(path = "/reception/acceptPayment")
-    public void acceptPayment(Long reservationId){
-        //TODO - no idea what this should do as of now
+    public void acceptPayment(Long paymentId){
+        paymentService.acceptPayment(paymentId);
     }
     @PostMapping(path = "/reception/checkIn")
     public void checkIn(Long clientId, Long residenceId){

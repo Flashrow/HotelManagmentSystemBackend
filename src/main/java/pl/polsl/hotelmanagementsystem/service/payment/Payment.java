@@ -3,10 +3,7 @@ package pl.polsl.hotelmanagementsystem.service.payment;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import pl.polsl.hotelmanagementsystem.service.reservation.Reservation;
 
 import javax.persistence.*;
@@ -14,6 +11,7 @@ import java.util.Date;
 
 @Entity
 @Builder
+@Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor

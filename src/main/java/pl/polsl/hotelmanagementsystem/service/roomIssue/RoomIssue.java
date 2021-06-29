@@ -3,10 +3,7 @@ package pl.polsl.hotelmanagementsystem.service.roomIssue;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import pl.polsl.hotelmanagementsystem.service.client.Client;
 import pl.polsl.hotelmanagementsystem.service.room.Room;
 
@@ -15,6 +12,7 @@ import java.util.Date;
 
 
 @Entity
+@Setter
 @Getter
 @Builder
 @AllArgsConstructor

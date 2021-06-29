@@ -67,4 +67,15 @@ public class RoomService {
         List<RoomIssue> roomIssues = roomIssueRepository.findByClient(client);
         return roomIssues;
     }
+
+    public void startRoomIssue(Long issueId){
+        RoomIssue roomIssue = roomIssueRepository.findById(issueId).orElseThrow();
+        roomIssue.setRoomIssueStatus(RoomIssueStatus.IN_PROGRESS);
+        roomIssueRepository.save(roomIssue);
+    }
+    public void resolveRoomIssues(Long issueId){
+        RoomIssue roomIssue = roomIssueRepository.findById(issueId).orElseThrow();
+        roomIssue.setRoomIssueStatus(RoomIssueStatus.RESOLVED);
+        roomIssueRepository.save(roomIssue);
+    }
 }
