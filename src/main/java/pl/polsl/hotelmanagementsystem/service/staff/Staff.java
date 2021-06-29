@@ -1,5 +1,6 @@
 package pl.polsl.hotelmanagementsystem.service.staff;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import pl.polsl.hotelmanagementsystem.service.user.Role;
 
@@ -20,6 +21,7 @@ public class Staff {
     private String firstName;
     private String lastName;
     private String email;
+    @JsonIgnore
     private String password;
     @ElementCollection(fetch = FetchType.EAGER)
     private List<Role> roles;

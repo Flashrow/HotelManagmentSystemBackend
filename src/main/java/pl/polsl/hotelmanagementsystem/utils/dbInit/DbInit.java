@@ -57,7 +57,7 @@ public class DbInit {
     //TODO: never, ever try leaving this function up for production
     @PostConstruct
     private void postConstruct(){
-        if(!clientRepository.findAll().isEmpty()){
+        if(clientRepository.findAll().isEmpty()){
             Client client = Client.builder()
                     .email("client")
                     .firstName("client")
@@ -84,10 +84,10 @@ public class DbInit {
             staffRepository.saveAll(staffs);
         }
 
-        if(!roomRepository.findAll().isEmpty()){
+        if(roomRepository.findAll().isEmpty()){
             addRooms(5);
         }
-        
+
         System.out.println("Database initialized with test users");
     }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 public class ExpenseService {
     private final ExpenseRepository expenseRepository;
     private final RoomRepository roomRepository;
-    @Scheduled(fixedRate = 10_000)  // change here to have lose money faster
+    @Scheduled(fixedRate = 100_000)  // change here to have lose money faster
     private void incurExpense(){
 
         Expense expense = Expense.builder()

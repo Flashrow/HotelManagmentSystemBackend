@@ -10,7 +10,10 @@ import pl.polsl.hotelmanagementsystem.service.client.ClientService;
 import pl.polsl.hotelmanagementsystem.service.expense.Expense;
 import pl.polsl.hotelmanagementsystem.service.expense.ExpenseService;
 import pl.polsl.hotelmanagementsystem.service.reservation.ReservationService;
+import pl.polsl.hotelmanagementsystem.service.staff.Staff;
+import pl.polsl.hotelmanagementsystem.service.staff.StaffService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -21,6 +24,12 @@ public class StaffController {
     private final ReservationService reservationService;
     private final CheckedInService checkedInService;
     private final ExpenseService expenseService;
+    private final StaffService staffService;
+    @GetMapping(path = "/getMyDetails")
+    public Staff getMyDetails(HttpServletRequest request){
+        return staffService.whoami();
+    }
+
     @GetMapping(path = "/kitchen/getFoodPreferences/{time-of-day}")
     public void getFoodPreferences(@PathVariable("time-of-day") KitchenTimeOfDayEnum timeOfDay){
         //TODO - leave it to free workforce
