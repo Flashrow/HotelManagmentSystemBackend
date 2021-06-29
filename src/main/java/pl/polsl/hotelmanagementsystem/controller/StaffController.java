@@ -73,10 +73,7 @@ public class StaffController {
     public void checkOut(Long checkedInId){
         checkedInService.checkOut(checkedInId);
     }
-    @PostMapping(path = "/reception/addResidence")
-    public void addResidence(Long roomID){
-        //TODO - leave it to free workforce
-    }
+
     @PostMapping(path = "/reception/modifyClientReservation/{reservation-id}")
     public void modifyClientReservation(@PathVariable("reservation-id") Long reservationId, Long clientId, AddReservationDTO addReservationDTO){
         reservationService.modifyClientReservation(reservationId, clientId, addReservationDTO);
