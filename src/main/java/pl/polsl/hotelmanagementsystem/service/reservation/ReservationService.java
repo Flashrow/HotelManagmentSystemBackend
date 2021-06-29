@@ -10,6 +10,7 @@ import pl.polsl.hotelmanagementsystem.service.client.Client;
 import pl.polsl.hotelmanagementsystem.service.client.ClientService;
 import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPreference;
 import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPreferenceRepository;
+import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPreferenceType;
 import pl.polsl.hotelmanagementsystem.service.payment.Payment;
 import pl.polsl.hotelmanagementsystem.service.payment.PaymentRepository;
 import pl.polsl.hotelmanagementsystem.service.payment.PaymentStatus;
@@ -112,9 +113,10 @@ public class ReservationService {
                 "Reservation with id: " + reservationId + " does not exist"));
 
     }
-    public ClientFoodPreference addClientFoodPreference(Long reservationId, String preference){
+    public ClientFoodPreference addClientFoodPreference(Long reservationId, ClientFoodPreferenceType clientFoodPreferenceType, String preference){
         ClientFoodPreference clientFoodPreference = ClientFoodPreference.builder()
                 .reservation(getReservationFromIdOrThrow(reservationId))
+                .clientFoodPreferenceType(clientFoodPreferenceType)
                 .preference(preference)
                 .build();
         clientFoodPreferenceRepository.save(clientFoodPreference);
@@ -137,4 +139,6 @@ public class ReservationService {
                 .findById(reservationId).orElseThrow(
                         () -> new ObjectExistsException("Reservation with id: " + reservationId + " does not exist"));
     }
+
+
 }

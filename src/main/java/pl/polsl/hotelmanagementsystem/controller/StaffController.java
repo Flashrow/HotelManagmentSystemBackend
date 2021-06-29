@@ -3,10 +3,12 @@ package pl.polsl.hotelmanagementsystem.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.hotelmanagementsystem.controller.dto.AddReservationDTO;
+import pl.polsl.hotelmanagementsystem.controller.dto.KitchenDishesDTO;
 import pl.polsl.hotelmanagementsystem.controller.dto.KitchenTimeOfDayEnum;
 import pl.polsl.hotelmanagementsystem.service.checkedIn.CheckedInService;
 import pl.polsl.hotelmanagementsystem.service.client.Client;
 import pl.polsl.hotelmanagementsystem.service.client.ClientService;
+import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPreferenceService;
 import pl.polsl.hotelmanagementsystem.service.expense.Expense;
 import pl.polsl.hotelmanagementsystem.service.expense.ExpenseService;
 import pl.polsl.hotelmanagementsystem.service.reservation.ReservationService;
@@ -25,14 +27,15 @@ public class StaffController {
     private final CheckedInService checkedInService;
     private final ExpenseService expenseService;
     private final StaffService staffService;
+    private final ClientFoodPreferenceService clientFoodPreferenceService;
     @GetMapping(path = "/getMyDetails")
     public Staff getMyDetails(HttpServletRequest request){
         return staffService.whoami();
     }
 
     @GetMapping(path = "/kitchen/getFoodPreferences/{time-of-day}")
-    public void getFoodPreferences(@PathVariable("time-of-day") KitchenTimeOfDayEnum timeOfDay){
-        //TODO - leave it to free workforce
+    public KitchenDishesDTO getFoodPreferences(@PathVariable("time-of-day") KitchenTimeOfDayEnum timeOfDay){
+        return clientFoodPreferenceService.getFoodPreferencesForKitchen(timeOfDay);
     }
 
     @GetMapping(path = "/roomService/{room-id}/getRoomIssues")
