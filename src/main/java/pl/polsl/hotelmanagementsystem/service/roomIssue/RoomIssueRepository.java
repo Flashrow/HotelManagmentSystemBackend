@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface RoomIssueRepository extends JpaRepository<RoomIssue, Long> {
     List<RoomIssue> findByClient(Client client);
+    List<RoomIssue> findByRoomIssueStatusIsNot(RoomIssueStatus roomIssueStatus);
 }

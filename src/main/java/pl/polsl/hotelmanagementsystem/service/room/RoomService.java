@@ -58,6 +58,10 @@ public class RoomService {
         roomIssueRepository.save(roomIssue);
     }
 
+    public List<RoomIssue> getAllOngoingRoomIssues(){
+        return roomIssueRepository.findByRoomIssueStatusIsNot(RoomIssueStatus.RESOLVED);
+    }
+
     public List<RoomIssue> getMyRoomIssues(){
         Client client = clientService.whoami();
         List<RoomIssue> roomIssues = roomIssueRepository.findByClient(client);

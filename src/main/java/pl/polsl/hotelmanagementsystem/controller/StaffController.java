@@ -12,6 +12,8 @@ import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPre
 import pl.polsl.hotelmanagementsystem.service.expense.Expense;
 import pl.polsl.hotelmanagementsystem.service.expense.ExpenseService;
 import pl.polsl.hotelmanagementsystem.service.reservation.ReservationService;
+import pl.polsl.hotelmanagementsystem.service.room.RoomService;
+import pl.polsl.hotelmanagementsystem.service.roomIssue.RoomIssue;
 import pl.polsl.hotelmanagementsystem.service.staff.Staff;
 import pl.polsl.hotelmanagementsystem.service.staff.StaffService;
 
@@ -28,6 +30,7 @@ public class StaffController {
     private final ExpenseService expenseService;
     private final StaffService staffService;
     private final ClientFoodPreferenceService clientFoodPreferenceService;
+    private final RoomService roomService;
     @GetMapping(path = "/getMyDetails")
     public Staff getMyDetails(HttpServletRequest request){
         return staffService.whoami();
@@ -39,8 +42,8 @@ public class StaffController {
     }
 
     @GetMapping(path = "/roomService/{room-id}/getRoomIssues")
-    public void getRoomIssues(@PathVariable("room-id") Long roomId){
-        //TODO - leave it to free workforce - remember - show ONLY in_progress and reported.
+    public List<RoomIssue> getRoomIssues(@PathVariable("room-id") Long roomId){
+        return roomService.getAllOngoingRoomIssues();
     }
     @PostMapping(path = "/roomService/startIssue/{issue-id}")
     public void startRoomIssue(@PathVariable("issue-id") Long issueId){
