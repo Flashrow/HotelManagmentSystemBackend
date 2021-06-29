@@ -57,30 +57,37 @@ public class DbInit {
     //TODO: never, ever try leaving this function up for production
     @PostConstruct
     private void postConstruct(){
-        Client client = Client.builder()
-                .email("client")
-                .firstName("client")
-                .lastName("client_last_name")
-                .country("Poland")
-                .postCode("14-504")
-                .city("łysina")
-                .address("Warszawa 12")
-                .phoneNumber("512-353-662")
-                .password(passwordEncoder.encode("string"))
-                .roles(new LinkedList<Role>(Collections.singletonList(Role.ROLE_CLIENT)))
-                .build();
-        clientRepository.save(client);
+        if(!clientRepository.findAll().isEmpty()){
+            Client client = Client.builder()
+                    .email("client")
+                    .firstName("client")
+                    .lastName("client_last_name")
+                    .country("Poland")
+                    .postCode("14-504")
+                    .city("łysina")
+                    .address("Warszawa 12")
+                    .phoneNumber("512-353-662")
+                    .password(passwordEncoder.encode("string"))
+                    .roles(new LinkedList<Role>(Collections.singletonList(Role.ROLE_CLIENT)))
+                    .build();
+            clientRepository.save(client);
+        }
 
-        List<Staff> staffs = new LinkedList<>();
-        staffs.add(staffCreator(Role.ROLE_ADMIN));
-        staffs.add(staffCreator(Role.ROLE_KITCHEN));
-        staffs.add(staffCreator(Role.ROLE_MANAGER));
-        staffs.add(staffCreator(Role.ROLE_RECEPTION));
-        staffs.add(staffCreator(Role.ROLE_ROOM_SERVICE));
-        staffs.add(staffCreator(Role.ROLE_STAFF));
-        staffRepository.saveAll(staffs);
+        if(staffRepository.findAll().isEmpty()){
+            List<Staff> staffs = new LinkedList<>();
+            staffs.add(staffCreator(Role.ROLE_ADMIN));
+            staffs.add(staffCreator(Role.ROLE_KITCHEN));
+            staffs.add(staffCreator(Role.ROLE_MANAGER));
+            staffs.add(staffCreator(Role.ROLE_RECEPTION));
+            staffs.add(staffCreator(Role.ROLE_ROOM_SERVICE));
+            staffs.add(staffCreator(Role.ROLE_STAFF));
+            staffRepository.saveAll(staffs);
+        }
 
-        addRooms(5);
+        if(!roomRepository.findAll().isEmpty()){
+            addRooms(5);
+        }
+        
         System.out.println("Database initialized with test users");
     }
 }
