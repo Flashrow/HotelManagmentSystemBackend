@@ -3,8 +3,6 @@ package pl.polsl.hotelmanagementsystem.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.hotelmanagementsystem.controller.dto.AddReservationDTO;
-import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPreference;
-import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPreferenceType;
 import pl.polsl.hotelmanagementsystem.service.payment.Payment;
 import pl.polsl.hotelmanagementsystem.service.reservation.Reservation;
 import pl.polsl.hotelmanagementsystem.service.reservation.ReservationService;
@@ -18,7 +16,7 @@ import java.util.List;
 public class ReservationController {
     private final ReservationService reservationService;
     @PostMapping(path = "/addReservation")
-    public Long addReservationAndReturnItsId(@RequestBody AddReservationDTO addReservationDTO){
+    public Long addReservationWithFoodPreferencesAndReturnItsId(@RequestBody AddReservationDTO addReservationDTO){
         return reservationService.addReservation(addReservationDTO);
     }
 
@@ -32,12 +30,12 @@ public class ReservationController {
         return reservationService.getReservation(reservationId);
     }
 
-    @PostMapping(path = "/addFoodPreference")
-    public ClientFoodPreference addFoodPreference(@RequestParam Long reservationId,
-                                                  @RequestParam ClientFoodPreferenceType clientFoodPreferenceType,
-                                                  @RequestParam String preference){
-        return reservationService.addClientFoodPreference(reservationId, clientFoodPreferenceType, preference);
-    }
+//    @PostMapping(path = "/addFoodPreference")
+//    public ClientFoodPreference addFoodPreference(@RequestParam Long reservationId,
+//                                                  @RequestParam ClientFoodPreferenceType clientFoodPreferenceType,
+//                                                  @RequestParam String preference){
+//        return reservationService.addClientFoodPreference(reservationId, clientFoodPreferenceType, preference);
+//    }
 
     @PostMapping(path = "/addPayment")
     public Payment addPayment(@RequestParam Long reservationId, @RequestParam Double amount){

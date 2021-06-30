@@ -3,14 +3,14 @@ package pl.polsl.hotelmanagementsystem.service.reservation;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.polsl.hotelmanagementsystem.controller.dto.AddFoodPreferenceDTO;
 import pl.polsl.hotelmanagementsystem.controller.dto.AddReservationDTO;
 import pl.polsl.hotelmanagementsystem.controller.dto.BlackoutTimeDTO;
 import pl.polsl.hotelmanagementsystem.service.checkedIn.CheckedIn;
 import pl.polsl.hotelmanagementsystem.service.client.Client;
 import pl.polsl.hotelmanagementsystem.service.client.ClientService;
 import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPreference;
-import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPreferenceRepository;
-import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPreferenceType;
+import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPreferenceService;
 import pl.polsl.hotelmanagementsystem.service.payment.Payment;
 import pl.polsl.hotelmanagementsystem.service.payment.PaymentRepository;
 import pl.polsl.hotelmanagementsystem.service.payment.PaymentStatus;
@@ -33,9 +33,9 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final RoomRepository roomRepository;
     private final PaymentRepository paymentRepository;
-    private final ClientFoodPreferenceRepository clientFoodPreferenceRepository;
     private final ResidenceRepository residenceRepository;
     private final ClientService clientService;
+    private final ClientFoodPreferenceService clientFoodPreferenceService;
 
     @Transactional(rollbackFor = DateAlreadyBookedException.class)
     public Long addReservation(AddReservationDTO addReservationDTO){
@@ -65,6 +65,9 @@ public class ReservationService {
                 .comments(addReservationDTO.getComment())
                 .build();
         reservationRepository.save(reservation);
+        for (AddFoodPreferenceDTO addFoodPreferenceDTO : addReservationDTO.getFoodPreferences()){
+            clientFoodPreferenceService.addFoodPreference(addFoodPreferenceDTO, reservation.getId());
+        }
         return reservation.getId();
     }
 
@@ -113,15 +116,15 @@ public class ReservationService {
                 "Reservation with id: " + reservationId + " does not exist"));
 
     }
-    public ClientFoodPreference addClientFoodPreference(Long reservationId, ClientFoodPreferenceType clientFoodPreferenceType, String preference){
-        ClientFoodPreference clientFoodPreference = ClientFoodPreference.builder()
-                .reservation(getReservationFromIdOrThrow(reservationId))
-                .clientFoodPreferenceType(clientFoodPreferenceType)
-                .preference(preference)
-                .build();
-        clientFoodPreferenceRepository.save(clientFoodPreference);
-        return clientFoodPreference;
-    }
+//    public ClientFoodPreference addClientFoodPreference(Long reservationId, ClientFoodPreferenceType clientFoodPreferenceType, String preference){
+//        ClientFoodPreference clientFoodPreference = ClientFoodPreference.builder()
+//                .reservation(getReservationFromIdOrThrow(reservationId))
+//                .clientFoodPreferenceType(clientFoodPreferenceType)
+//                .preference(preference)
+//                .build();
+//        clientFoodPreferenceRepository.save(clientFoodPreference);
+//        return clientFoodPreference;
+//    }
 
     public Payment addPayment(Long reservationId, Double amount) {
         Payment payment = Payment.builder()

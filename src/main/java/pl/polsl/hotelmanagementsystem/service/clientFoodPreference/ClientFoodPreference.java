@@ -24,6 +24,7 @@ public class ClientFoodPreference {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
     private Reservation reservation;
+    private ClientFoodPreferenceTimeOfDayType clientFoodPreferenceTimeOfDayType;
     private ClientFoodPreferenceType clientFoodPreferenceType;
     private String preference;
 

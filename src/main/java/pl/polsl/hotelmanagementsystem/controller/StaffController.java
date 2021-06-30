@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.hotelmanagementsystem.controller.dto.AddReservationDTO;
 import pl.polsl.hotelmanagementsystem.controller.dto.KitchenDishesDTO;
-import pl.polsl.hotelmanagementsystem.controller.dto.KitchenTimeOfDayEnum;
+import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPreferenceTimeOfDayType;
 import pl.polsl.hotelmanagementsystem.service.checkedIn.CheckedInService;
 import pl.polsl.hotelmanagementsystem.service.client.Client;
 import pl.polsl.hotelmanagementsystem.service.client.ClientService;
@@ -39,7 +39,7 @@ public class StaffController {
     }
 
     @GetMapping(path = "/kitchen/getFoodPreferences/{time-of-day}")
-    public KitchenDishesDTO getFoodPreferences(@PathVariable("time-of-day") KitchenTimeOfDayEnum timeOfDay){
+    public KitchenDishesDTO getFoodPreferences(@PathVariable("time-of-day") ClientFoodPreferenceTimeOfDayType timeOfDay){
         return clientFoodPreferenceService.getFoodPreferencesForKitchen(timeOfDay);
     }
 
