@@ -21,6 +21,7 @@ import pl.polsl.hotelmanagementsystem.service.staff.Staff;
 import pl.polsl.hotelmanagementsystem.service.staff.StaffService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -45,8 +46,8 @@ public class StaffController {
         return clientFoodPreferenceService.getFoodPreferencesForKitchen(timeOfDay);
     }
 
-    @GetMapping(path = "/roomService/{room-id}/getRoomIssues")
-    public List<RoomIssue> getRoomIssues(@PathVariable("room-id") Long roomId){
+    @GetMapping(path = "/roomService/getAllOngoingRoomIssues")
+    public List<RoomIssue> getRoomIssues(){
         return roomService.getAllOngoingRoomIssues();
     }
     @PostMapping(path = "/roomService/startIssue/{issue-id}")
@@ -86,6 +87,10 @@ public class StaffController {
     @PostMapping(path = "/reception/modifyClientReservation/{reservation-id}")
     public void modifyClientReservation(@PathVariable("reservation-id") Long reservationId, Long clientId, AddReservationDTO addReservationDTO){
         reservationService.modifyClientReservation(reservationId, clientId, addReservationDTO);
+    }
+    @GetMapping(path = "/getAllRoomsAllRoomIssues")
+    public List<RoomIssue> getAllRoomsAllRoomIssues(){
+        return new LinkedList<>();  //TODO
     }
     @GetMapping(path = "/manager/getExpenses")
     public List<Expense> getExpenses(){
