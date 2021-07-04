@@ -5,14 +5,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.polsl.hotelmanagementsystem.controller.dto.AddRoomIssueDTO;
 import pl.polsl.hotelmanagementsystem.controller.dto.NewRoomDTO;
+import pl.polsl.hotelmanagementsystem.controller.dto.SingleActiveRoomDTO;
 import pl.polsl.hotelmanagementsystem.service.client.Client;
 import pl.polsl.hotelmanagementsystem.service.client.ClientService;
+import pl.polsl.hotelmanagementsystem.service.reservation.Reservation;
+import pl.polsl.hotelmanagementsystem.service.reservation.ReservationRepository;
+import pl.polsl.hotelmanagementsystem.service.residence.ResidenceRepository;
 import pl.polsl.hotelmanagementsystem.service.roomIssue.RoomIssue;
 import pl.polsl.hotelmanagementsystem.service.roomIssue.RoomIssueRepository;
 import pl.polsl.hotelmanagementsystem.service.roomIssue.RoomIssueStatus;
 import pl.polsl.hotelmanagementsystem.utils.exception.ObjectExistsException;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -21,7 +26,8 @@ public class RoomService {
     private final RoomRepository roomRepository;
     private final RoomIssueRepository roomIssueRepository;
     private final ClientService clientService;
-
+    private final ResidenceRepository residenceRepository;
+    private final ReservationRepository reservationRepository;
     @Transactional
     public void addRoom(NewRoomDTO newRoomDTO){
         if(roomRepository.findById(newRoomDTO.getId()).isEmpty()){
@@ -87,5 +93,19 @@ public class RoomService {
         RoomIssue roomIssue = roomIssueRepository.findById(issueId).orElseThrow();
         roomIssue.setRoomIssueStatus(RoomIssueStatus.RESOLVED);
         roomIssueRepository.save(roomIssue);
+    }
+    public List<SingleActiveRoomDTO> getActiveRooms(){
+        List<Reservation> reservations = reservationRepository.getAllByResidenceEndDateAfter(new Date());
+        List<SingleActiveRoomDTO> activeRooms = new LinkedList<>();
+        for (Reservation reservation : reservations){
+            SingleActiveRoomDTO singleActiveRoomDTO = SingleActiveRoomDTO.builder()
+                    .client(reservation.getClient())
+                    .room(reservation.getResidence().getRoom())
+                    .startDate(reservation.getResidence().getStartDate())
+                    .endDate(reservation.getResidence().getEndDate())
+                    .build();
+            activeRooms.add(singleActiveRoomDTO);
+        }
+        return activeRooms;
     }
 }

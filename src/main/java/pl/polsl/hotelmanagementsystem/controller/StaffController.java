@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.polsl.hotelmanagementsystem.controller.dto.AddReservationDTO;
 import pl.polsl.hotelmanagementsystem.controller.dto.KitchenDishesDTO;
 import pl.polsl.hotelmanagementsystem.controller.dto.NewRoomDTO;
+import pl.polsl.hotelmanagementsystem.controller.dto.SingleActiveRoomDTO;
 import pl.polsl.hotelmanagementsystem.service.checkedIn.CheckedInService;
 import pl.polsl.hotelmanagementsystem.service.client.Client;
 import pl.polsl.hotelmanagementsystem.service.client.ClientService;
@@ -61,7 +62,10 @@ public class StaffController {
     public List<Client> getAllClients(){
         return clientService.getAllClients();
     }
-
+    @GetMapping(path = "/reception/getClient")
+    public Client getClient(Long clientId){
+        return clientService.getClientById(clientId);
+    }
     @PostMapping(path = "/reception/acceptPayment")
     public void acceptPayment(Long paymentId){
         paymentService.acceptPayment(paymentId);
@@ -73,6 +77,10 @@ public class StaffController {
     @PostMapping(path = "/reception/checkOut")
     public void checkOut(Long checkedInId){
         checkedInService.checkOut(checkedInId);
+    }
+    @GetMapping(path = "/reception/getActiveRooms")
+    public List<SingleActiveRoomDTO> getActiveRooms(){
+        return roomService.getActiveRooms();
     }
 
     @PostMapping(path = "/reception/modifyClientReservation/{reservation-id}")
