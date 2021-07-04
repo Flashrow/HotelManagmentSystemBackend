@@ -4,11 +4,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.hotelmanagementsystem.controller.dto.AddReservationDTO;
 import pl.polsl.hotelmanagementsystem.controller.dto.KitchenDishesDTO;
-import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPreferenceTimeOfDayType;
+import pl.polsl.hotelmanagementsystem.controller.dto.NewRoomDTO;
 import pl.polsl.hotelmanagementsystem.service.checkedIn.CheckedInService;
 import pl.polsl.hotelmanagementsystem.service.client.Client;
 import pl.polsl.hotelmanagementsystem.service.client.ClientService;
 import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPreferenceService;
+import pl.polsl.hotelmanagementsystem.service.clientFoodPreference.ClientFoodPreferenceTimeOfDayType;
 import pl.polsl.hotelmanagementsystem.service.expense.Expense;
 import pl.polsl.hotelmanagementsystem.service.expense.ExpenseService;
 import pl.polsl.hotelmanagementsystem.service.payment.PaymentService;
@@ -90,5 +91,9 @@ public class StaffController {
     @GetMapping(path = "/manager/getHotelHistory")
     public void getHotelHistory(){
         //TODO ???
+    }
+    @PostMapping(path = "/admin/modifyRoom")
+    public void modifyRoom(NewRoomDTO newRoomDTO){
+        roomService.modifyRoom(newRoomDTO);
     }
 }

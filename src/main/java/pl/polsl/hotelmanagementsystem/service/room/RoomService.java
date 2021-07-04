@@ -40,6 +40,16 @@ public class RoomService {
         }
     }
 
+    public void modifyRoom(NewRoomDTO newRoomDTO){
+        Room room = roomRepository.findById(newRoomDTO.getId()).orElseThrow();
+        room.setNumber(newRoomDTO.getNumber());
+        room.setSize(newRoomDTO.getSize());
+        room.setFloor(newRoomDTO.getFloor());
+        room.setDescription(newRoomDTO.getDescription());
+        room.setPrice(newRoomDTO.getPrice());
+        roomRepository.save(room);
+    }
+
     public List<Room> getAllRooms(){
         return roomRepository.findAll();
     }
