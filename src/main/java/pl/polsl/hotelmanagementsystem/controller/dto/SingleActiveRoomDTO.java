@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import pl.polsl.hotelmanagementsystem.service.client.Client;
 import pl.polsl.hotelmanagementsystem.service.client.ClientInformationDTO;
+import pl.polsl.hotelmanagementsystem.service.equipmentQuantity.EquipmentQuantityDTO;
 import pl.polsl.hotelmanagementsystem.service.expense.ExpenseDTO;
 import pl.polsl.hotelmanagementsystem.service.room.Room;
 import pl.polsl.hotelmanagementsystem.service.room.RoomInformationDTO;
@@ -60,10 +61,15 @@ public class SingleActiveRoomDTO {
                 ExpenseDTO expenseDTO = new ExpenseDTO(expense);
                 return expenseDTO;
             }).collect(Collectors.toList());
+            List<EquipmentQuantityDTO> equipmentQuantityDTOs = room.getEquipmentQuantities().stream()
+                    .map(equipmentQuantity -> {
+                EquipmentQuantityDTO equipmentQuantityDTO = new EquipmentQuantityDTO(equipmentQuantity);
+                return equipmentQuantityDTO;
+            }).collect(Collectors.toList());
             this.room = new RoomInformationDTO().builder()
                     .roomIssues(room.getRoomIssues().stream().map(RoomIssue::getId).collect(Collectors.toList()))
                     .description(room.getDescription())
-                    .equipmentQuantities(room.getEquipmentQuantities())
+                    .equipmentQuantities(equipmentQuantityDTOs)
                     .expenses(expenseDTOs)
                     .floor(room.getFloor())
                     .id(room.getId())

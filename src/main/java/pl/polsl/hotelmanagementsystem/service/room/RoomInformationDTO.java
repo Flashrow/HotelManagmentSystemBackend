@@ -1,7 +1,7 @@
 package pl.polsl.hotelmanagementsystem.service.room;
 
 import lombok.*;
-import pl.polsl.hotelmanagementsystem.service.equipmentQuantity.EquipmentQuantity;
+import pl.polsl.hotelmanagementsystem.service.equipmentQuantity.EquipmentQuantityDTO;
 import pl.polsl.hotelmanagementsystem.service.expense.ExpenseDTO;
 
 import java.util.List;
@@ -22,6 +22,5 @@ public class RoomInformationDTO {
 
     private List<Long> roomIssues;
     private List<ExpenseDTO> expenses;
-//    private List<Expense> expenses;
-    private List<EquipmentQuantity> equipmentQuantities;
+    private List<EquipmentQuantityDTO> equipmentQuantities;
 }
