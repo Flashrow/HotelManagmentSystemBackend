@@ -77,7 +77,7 @@ public class StaffController {
         checkedInService.checkOut(checkedInId);
     }
 
-    @GetMapping(path = "/reception/getActiveRoomsRemake")
+    @GetMapping(path = "/reception/getActiveRooms")
     public List<SingleActiveRoomDTO> getActiveRooms(){
         return roomService.getActiveRooms();
     }
