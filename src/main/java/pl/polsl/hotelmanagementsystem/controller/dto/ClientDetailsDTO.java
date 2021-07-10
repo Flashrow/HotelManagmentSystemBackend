@@ -18,4 +18,5 @@ public class ClientDetailsDTO {
     private final String country;
     private final String city;
     private final String address;
+    //TODO: no phone number!!!
 }

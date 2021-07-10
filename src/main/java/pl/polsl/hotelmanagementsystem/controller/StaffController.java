@@ -2,10 +2,7 @@ package pl.polsl.hotelmanagementsystem.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import pl.polsl.hotelmanagementsystem.controller.dto.AddReservationDTO;
-import pl.polsl.hotelmanagementsystem.controller.dto.KitchenDishesDTO;
-import pl.polsl.hotelmanagementsystem.controller.dto.NewRoomDTO;
-import pl.polsl.hotelmanagementsystem.controller.dto.SingleActiveRoomDTO;
+import pl.polsl.hotelmanagementsystem.controller.dto.*;
 import pl.polsl.hotelmanagementsystem.service.checkedIn.CheckedInService;
 import pl.polsl.hotelmanagementsystem.service.client.Client;
 import pl.polsl.hotelmanagementsystem.service.client.ClientService;
@@ -83,7 +80,10 @@ public class StaffController {
     public List<SingleActiveRoomDTO> getActiveRooms(){
         return roomService.getActiveRooms();
     }
-
+    @GetMapping(path = "/reception/getActiveRoomsRemake")
+    public List<SingleActiveRoomRemakeDTO> getActiveRoomsRemake(){
+        return roomService.getActiveRoomsRemake();
+    }
     @PostMapping(path = "/reception/modifyClientReservation/{reservation-id}")
     public void modifyClientReservation(@PathVariable("reservation-id") Long reservationId, Long clientId, AddReservationDTO addReservationDTO){
         reservationService.modifyClientReservation(reservationId, clientId, addReservationDTO);
