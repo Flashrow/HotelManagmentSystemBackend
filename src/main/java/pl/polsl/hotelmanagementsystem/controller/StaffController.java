@@ -76,13 +76,10 @@ public class StaffController {
     public void checkOut(Long checkedInId){
         checkedInService.checkOut(checkedInId);
     }
-    @GetMapping(path = "/reception/getActiveRooms")
+
+    @GetMapping(path = "/reception/getActiveRoomsRemake")
     public List<SingleActiveRoomDTO> getActiveRooms(){
         return roomService.getActiveRooms();
-    }
-    @GetMapping(path = "/reception/getActiveRoomsRemake")
-    public List<SingleActiveRoomRemakeDTO> getActiveRoomsRemake(){
-        return roomService.getActiveRoomsRemake();
     }
     @PostMapping(path = "/reception/modifyClientReservation/{reservation-id}")
     public void modifyClientReservation(@PathVariable("reservation-id") Long reservationId, Long clientId, AddReservationDTO addReservationDTO){

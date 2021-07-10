@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.polsl.hotelmanagementsystem.controller.dto.AddRoomIssueDTO;
 import pl.polsl.hotelmanagementsystem.controller.dto.NewRoomDTO;
 import pl.polsl.hotelmanagementsystem.controller.dto.SingleActiveRoomDTO;
-import pl.polsl.hotelmanagementsystem.controller.dto.SingleActiveRoomRemakeDTO;
 import pl.polsl.hotelmanagementsystem.service.client.Client;
 import pl.polsl.hotelmanagementsystem.service.client.ClientService;
 import pl.polsl.hotelmanagementsystem.service.reservation.Reservation;
@@ -95,6 +94,7 @@ public class RoomService {
         roomIssue.setRoomIssueStatus(RoomIssueStatus.RESOLVED);
         roomIssueRepository.save(roomIssue);
     }
+
     public List<SingleActiveRoomDTO> getActiveRooms(){
         List<Reservation> reservations = reservationRepository.getAllByResidenceEndDateAfter(new Date());
         List<SingleActiveRoomDTO> activeRooms = new LinkedList<>();
@@ -106,20 +106,6 @@ public class RoomService {
                     .endDate(reservation.getResidence().getEndDate())
                     .build();
             activeRooms.add(singleActiveRoomDTO);
-        }
-        return activeRooms;
-    }
-    public List<SingleActiveRoomRemakeDTO> getActiveRoomsRemake(){
-        List<Reservation> reservations = reservationRepository.getAllByResidenceEndDateAfter(new Date());
-        List<SingleActiveRoomRemakeDTO> activeRooms = new LinkedList<>();
-        for (Reservation reservation : reservations){
-            SingleActiveRoomRemakeDTO singleActiveRoomRemakeDTO = SingleActiveRoomRemakeDTO.builder()
-                    .client(reservation.getClient())
-                    .room(reservation.getResidence().getRoom())
-                    .startDate(reservation.getResidence().getStartDate())
-                    .endDate(reservation.getResidence().getEndDate())
-                    .build();
-            activeRooms.add(singleActiveRoomRemakeDTO);
         }
         return activeRooms;
     }
