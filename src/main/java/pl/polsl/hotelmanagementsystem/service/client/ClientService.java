@@ -67,6 +67,7 @@ public class ClientService {
                         jwtTokenProvider.resolveToken(httpServletRequest)))
                  .orElseThrow(() -> new ObjectExistsException("There are no clients associated with this session"));
          return ClientDetailsDTO.builder()
+                 .id(client.getId())
                  .name(client.getFirstName())
                  .surname(client.getLastName())
                  .email(client.getEmail())

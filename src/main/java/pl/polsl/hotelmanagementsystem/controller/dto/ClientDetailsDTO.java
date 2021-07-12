@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class ClientDetailsDTO {
+    private final Long id;
     private final String name;
     private final String surname;
     private final String email;
@@ -18,5 +19,4 @@ public class ClientDetailsDTO {
     private final String country;
     private final String city;
     private final String address;
-    //TODO: no phone number!!!
 }
